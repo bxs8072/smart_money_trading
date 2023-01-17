@@ -1,0 +1,5 @@
+module.exports = {
+    stripeSecretKey: "sk_test_51MOYUyDermVkq7wDp0dk6Y7Zz0kS2xnyK46XYoHVptsZeLRvdADIqs5XfG7EeRNqkoIkd2PeuQeU7wDcY2Ee8Opz00WAp4tfLr",
+    stripePublishableKey: "pk_test_51MOYUyDermVkq7wDPKGQ1iu2XPSwHaPcexoELJCKuzam7Ga9URWIvQrTZ2992Ikp5YU6BHg6DwdJpmQJlrPCgPq00062vXGvWE",
+    webhookSecret: "whsec_91eec42ca642c39ecbb2703cf9f3fb649fa809ca7ee62c83048c55444198ce34",
+}

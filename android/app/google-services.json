@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "456307585043",
+    "project_id": "smartmoney-fef2d",
+    "storage_bucket": "smartmoney-fef2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456307585043:android:852439c035ec994437cfe6",
+        "android_client_info": {
+          "package_name": "com.example.smart_money_trading"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456307585043-oe9if56df11igppguo9dmm3hcnbnv6v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTFFBtcCk6m7Ph9cBHLwCg_TUBsAJNyTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456307585043-oe9if56df11igppguo9dmm3hcnbnv6v7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "456307585043-89pfg7jo2b6vloegno546q0jn4m076t2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartmoneytrading"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456307585043:android:aad65260600cb1f437cfe6",
+        "android_client_info": {
+          "package_name": "com.example.smartmoneytrading"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456307585043-oe9if56df11igppguo9dmm3hcnbnv6v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTFFBtcCk6m7Ph9cBHLwCg_TUBsAJNyTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456307585043-oe9if56df11igppguo9dmm3hcnbnv6v7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "456307585043-89pfg7jo2b6vloegno546q0jn4m076t2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartmoneytrading"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456307585043:android:d3ee351edcc1502137cfe6",
+        "android_client_info": {
+          "package_name": "com.smt.smart_money_trading"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456307585043-p9tppligjrc7pku3fomislrh2jsgf6l7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.smt.smart_money_trading",
+            "certificate_hash": "bc1710680622fd8a875757e90e945bb4eeaa00f4"
+          }
+        },
+        {
+          "client_id": "456307585043-oe9if56df11igppguo9dmm3hcnbnv6v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTFFBtcCk6m7Ph9cBHLwCg_TUBsAJNyTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456307585043-oe9if56df11igppguo9dmm3hcnbnv6v7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "456307585043-89pfg7jo2b6vloegno546q0jn4m076t2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartmoneytrading"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
