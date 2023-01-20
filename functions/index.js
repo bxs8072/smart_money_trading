@@ -38,15 +38,16 @@ exports.onUpdateCustomer = functions
         const stripeCustomerId = oldValue.stripeCustomerId;
 
         const { firstname, middlename, lastname, phone } = newValue;
-        const fullname = `${firstname} ${middlename} ${lastname}`;
 
-        const { line1, line2, city, state, postalCode, country } = newValue.address;
+        const fullname = middlename == "" ? `${firstname} ${lastname}` : `${firstname} ${middlename} ${lastname}`;
+
+        const { line1, line2, city, state, zipcode } = newValue.address;
 
         await stripe.customers.update(stripeCustomerId,
             {
                 name: fullname,
                 phone: phone,
-                address: { line1, line2, city, state, postal_code: postalCode, country },
+                address: { line1, line2, city, state, postal_code: zipcode, country: "US" },
             },
         );
     });

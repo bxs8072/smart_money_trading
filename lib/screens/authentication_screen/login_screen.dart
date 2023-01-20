@@ -116,7 +116,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 context: context,
                                 builder: (ctx) {
                                   return ErrorDialog(
-                                    message: error.toString().split("]")[1],
+                                    message:
+                                        error.toString().split("]")[1].trim(),
                                     title: "Login Error",
                                   );
                                 });

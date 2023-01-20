@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_money_trading/screens/authentication_screen/authentication_screen.dart';
-import 'package:smart_money_trading/services/theme_services/theme_service.dart';
-import 'package:theme_provider/theme_provider.dart';
+import 'package:smart_money_trading/screens/home_landing_screen/home_landing_screen.dart';
+import 'package:smart_money_trading/screens/setup_screen/setup_screen.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -30,10 +30,7 @@ class _LandingScreenState extends State<LandingScreen>
             );
           } else {
             if (snapshot.hasData) {
-              return Center(
-                key: widget.key,
-                child: Text("Home Screen", key: widget.key),
-              );
+              return HomeLandingScreen(key: widget.key);
             } else {
               return AuthenticationScreen(key: widget.key);
             }

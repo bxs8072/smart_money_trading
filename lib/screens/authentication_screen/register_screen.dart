@@ -1,5 +1,7 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:smart_money_trading/custom_widgets/error_dialog.dart';
 import 'package:smart_money_trading/screens/authentication_screen/authentication_screen_bloc.dart';
 import 'package:smart_money_trading/services/size_service.dart';
@@ -28,6 +30,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   bool isVisiblePassword = false;
+  bool isValidPassword = false;
+  bool isTermAndConditionAccepted = false;
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               SizedBox(height: SizeService(context).verticalPadding * 1.5),
               Form(
+                key: formKey,
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                       horizontal: SizeService(context).horizontalPadding),
@@ -68,6 +75,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           labelText: "Email Address",
                           prefixIcon: Icon(Icons.email),
                         ),
+                        validator: (val) {
+                          if (!EmailValidator.validate(val!)) {
+                            return "Enter valid email address";
+                          }
+                          return null;
+                        },
                         onChanged: (val) {
                           setState(() {});
                         },
@@ -95,8 +108,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 : Icons.remove_red_eye_outlined),
                           ),
                         ),
+                        validator: (val) {
+                          if (isValidPassword == false) {
+                            return "Enter valid password";
+                          }
+                          return null;
+                        },
                         onChanged: (val) {
                           setState(() {});
+                        },
+                      ),
+                      SizedBox(height: SizeService(context).height * 0.02),
+                      FlutterPwValidator(
+                        controller: passwordController,
+                        minLength: 6,
+                        uppercaseCharCount: 2,
+                        numericCharCount: 3,
+                        specialCharCount: 1,
+                        width: 400,
+                        height: 150,
+                        onSuccess: () {
+                          setState(() {
+                            isValidPassword = true;
+                          });
+                        },
+                        onFail: () {
+                          setState(() {
+                            isValidPassword = false;
+                          });
                         },
                       ),
                       SizedBox(height: SizeService(context).verticalPadding),
@@ -120,6 +159,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          Checkbox(
+                              activeColor: ThemeService.success,
+                              checkColor: ThemeService.light,
+                              value: isTermAndConditionAccepted,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100)),
+                              onChanged: (val) {
+                                setState(() {
+                                  isTermAndConditionAccepted = val!;
+                                });
+                              }),
                           Text(
                             "Please accept our",
                             key: widget.key,
@@ -128,7 +178,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onPressed: () {
                               showDialog(
                                   context: context,
-                                  builder: (context) {
+                                  builder: (ctx) {
                                     return AlertDialog(
                                       title: const Text("Terms and Conditions"),
                                       content: const Text(
@@ -137,7 +187,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           MainAxisAlignment.center,
                                       actions: [
                                         ElevatedButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            setState(() {
+                                              isTermAndConditionAccepted = true;
+                                            });
+                                            Navigator.pop(ctx);
+                                          },
                                           style: OutlinedButton.styleFrom(
                                               foregroundColor:
                                                   ThemeService.light,
@@ -146,7 +201,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           child: const Text("ACCEPT"),
                                         ),
                                         OutlinedButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            setState(() {
+                                              isTermAndConditionAccepted =
+                                                  false;
+                                            });
+                                            Navigator.pop(ctx);
+                                          },
                                           style: OutlinedButton.styleFrom(
                                             foregroundColor: ThemeService.error,
                                           ),
@@ -162,21 +223,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          FirebaseAuth.instance
-                              .createUserWithEmailAndPassword(
-                                  email:
-                                      emailController.text.trim().toLowerCase(),
-                                  password: passwordController.text.trim())
-                              .catchError((error) {
-                            showDialog(
-                                context: context,
-                                builder: (ctx) {
-                                  return ErrorDialog(
-                                    message: error.toString().split("]")[1],
-                                    title: "Sign Up Error",
-                                  );
-                                });
-                          });
+                          if (formKey.currentState!.validate() &&
+                              isTermAndConditionAccepted) {
+                            FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: emailController.text
+                                        .trim()
+                                        .toLowerCase(),
+                                    password: passwordController.text.trim())
+                                .catchError((error) {
+                              showDialog(
+                                  context: context,
+                                  builder: (ctx) {
+                                    return ErrorDialog(
+                                      message:
+                                          error.toString().split("]")[1].trim(),
+                                      title: "Sign Up Error",
+                                    );
+                                  });
+                            });
+                          }
                         },
                         child: Text("REGISTER", key: widget.key),
                       ),

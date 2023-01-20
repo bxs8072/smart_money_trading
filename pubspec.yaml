@@ -39,6 +39,9 @@ dependencies:
   theme_provider: ^0.5.0
   google_fonts: ^3.0.1
   intl: ^0.17.0
+  flutter_pw_validator: ^1.5.0
+  email_validator: ^2.1.17
+  flutter_multi_formatter: ^2.10.2
 
   # Firebase
   firebase_auth: ^4.2.5
