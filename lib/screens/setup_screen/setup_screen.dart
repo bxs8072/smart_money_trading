@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/phone_input_formatter.dart';
 import 'package:intl/intl.dart';
+import 'package:smart_money_trading/models/address.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 
@@ -280,12 +281,14 @@ class _SetupScreenState extends State<SetupScreen> {
                                 "middlename": middlenameController.text.trim(),
                                 "lastname": lastnameController.text.trim(),
                                 "phone": phoneController.text.trim(),
-                                "line1": line1Controller.text.trim(),
-                                "line2": line2Controller.text.trim(),
                                 "dateOfBirth": Timestamp.fromDate(dateOfBirth),
-                                "city": cityController.text.trim(),
-                                "state": stateController.text.trim(),
-                                "zipcode": zipcodeController.text.trim(),
+                                "address": Address(
+                                  line1: line1Controller.text.trim(),
+                                  line2: line2Controller.text.trim(),
+                                  city: cityController.text.trim(),
+                                  state: stateController.text.trim(),
+                                  zipcode: zipcodeController.text.trim(),
+                                ).toJson,
                               });
                             },
                             child: Text("CREATE ACCOUNT", key: widget.key),

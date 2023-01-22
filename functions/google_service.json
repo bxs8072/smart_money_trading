@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "smartmoney-fef2d",
+    "private_key_id": "065cf3ad9a3e865bd5baa921250fa1b284ece588",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCv4vToxcWxbn4p\nExT0fH4H18s6ysmpJod6b5lk6M5yxHQJzlJw6/yI726h/0gFXJFuk+RdFSkP4NEv\ny7T5nK1t3Gl/oK0By71zmbX6HD99AImjBAIdoWXzWIZiDdHoqLP+rcnupCET7l/T\nHOzgRiPmtGS6HdYC1R4tIgXjcUrLfidpXDUNUlHHKMwUcSeVfDUQiBck7BclAiQH\nn87RyLYLaWbkblFTZTy1CKV8RKvkRr1pp2ONt24lzSU0pG/m4myNTbQCbKRM3i4D\niBn2eJ2lfiPXBcdgZKdyMZRi9mRnfwhOnVK00yLzPg7w9w7LNAr1HeFpiAwoop2r\n1C/1LMO/AgMBAAECggEAQxKpkprY6PDZ64/7TcCrzxHbzm/Gt1qaD3a/aFvfXqTM\nG3Eyvx0/EHk+F0jijijezOxZCaYoIoX5P+DPAuFcwahsEt+TGjw34v2bB+X90A2E\nb0X4CJSj7Ei19m6OvcqX2WcsunScqJ0ercM6EcytpCzmvJLkKfBbsZpn5HQvsamm\ny/2chF92nzxCfU00fHeuwdoP0447vLXNzQHbXRaoEFGPLpCvt9evsOZ2m6634VSE\nbCqCv6ff1mZhzKOoBSf/HMaTnBVExlf1hoZa4o31bbElMbd4wzXalrVge4I/mY96\nkYnS+n9Ah+wKLDCq1JEFQXiurXjX8xvs3X7nyHeSAQKBgQDy5GNUbvQ1JNosywHK\n54j5G2bOxp3AdX/sx/iMmVPFvb+lDoUt23DyFpFoIHb1ACOlRs4BseVdk3AI6q5M\nfIUYKp76IvxbDcPm0bJvCn6ciPwU9q35Mj0KtiS1II0r/vl2QXfTlGSWtvvexExh\n+Wgcj6M0z4FboHUQrPAKiER2NwKBgQC5YN7lL/H+fbrGCAuIgOtAnN2T8nwSZOv7\nkCDH97LWVkA3Lmn5wKWLwp969c7TPnqNzczGDoS2ctUo4K/H34wovb+aYNKc4GgB\nZFsPycveaSRyKnTe86jIM4c54gOoOdJkzn6bmYaG6tbRMkq54Jbks4Nb505rPzTD\nJcbrVPxauQKBgEKS/PLIkqD6X96FKhGeUrnMm+ozIEv/KLgSu3p2EDMT5jJsf25p\nRlTkgKhktZZDmoGTnaVzSCXU4pFfGbUXMDfGftqaukaOyFI8ycaLvtZS6Z0pW9gA\nwCBuejM3H9qeQWv7V8ejVcrFjtWpQjJcdP/XEunHsnIV0eBnNkf8v58TAoGBAIkD\nz1tIR62Y0k6CLbwTxU15Y9Bw/kE+NKk3yvLh4l3HXCks9gkx2WnmTKe+PMMnv79F\nqB+PJYoQb/qJr4KkeNy3+oEpJSHsPxMgUKnntfZKcjSrqrwLDeoDI+SlZ5yUOCxn\n724kWCkqM+JlMJQYKo8ZG3L3EJ/2FJJUPqU7qFWJAoGBAJMTGbmq4jWkUDMNeUwq\nAAAnmaUkiCo4lcD2P2lpelirKOMHcS2AHGQA3H7C+fdESakzqhwaLQBP3CZgX464\n4KFu+JHL+MCoPHpKGJbORZ0dQZW5abd/ymYllOH9lmmqA9TiExQ49+KHtsC0+164\nraQW5fAwC8K+lmM31jOi6LNn\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-97sb2@smartmoney-fef2d.iam.gserviceaccount.com",
+    "client_id": "111302784316908247556",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-97sb2%40smartmoney-fef2d.iam.gserviceaccount.com"
+  }
+  

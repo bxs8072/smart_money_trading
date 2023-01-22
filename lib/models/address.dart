@@ -3,7 +3,7 @@ class Address {
   final String? line2;
   final String city;
   final String state;
-  final int zipcode;
+  final String zipcode;
 
   Address({
     required this.line1,

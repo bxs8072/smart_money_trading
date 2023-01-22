@@ -2,6 +2,11 @@ const functions = require("firebase-functions");
 const { stripeSecretKey } = require("./stripe-config");
 
 const admin = require("firebase-admin");
+const serviceAccount = require("./google_service.json");
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+});
 
 const stripe = require("stripe")(stripeSecretKey);
 
@@ -16,15 +21,19 @@ exports.createUserInStripe = functions
             },
         });
 
+        
+
+        const createdAt = admin.firestore.Timestamp.fromMillis(customer.created * 1000);
         await admin.
             firestore()
             .collection("customers")
             .doc(user.uid).set({
                 setup: false,
                 stripeCustomerId: customer.id,
-                createdAt: customer.created,
+                createdAt: createdAt, 
                 email: customer.email,
-                invoicePrefix: customer.invoicePrefix,
+                invoicePrefix: customer.invoice_prefix,
+                firebaseUid: customer.metadata.firebaseUid,
             });
     });
 
@@ -51,4 +60,5 @@ exports.onUpdateCustomer = functions
             },
         );
     });
+
 

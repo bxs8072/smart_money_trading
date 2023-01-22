@@ -8,8 +8,9 @@ class Customer {
   final String email;
   final String phone;
   final Timestamp dateOfBirth;
-  final String firebaseUID;
-  final String stripeID;
+  final Timestamp createdAt;
+  final String firebaseUid;
+  final String? stripeCustomerId;
   final Address address;
 
   Customer({
@@ -19,8 +20,9 @@ class Customer {
     required this.email,
     required this.phone,
     required this.dateOfBirth,
-    required this.firebaseUID,
-    required this.stripeID,
+    required this.createdAt,
+    required this.firebaseUid,
+    this.stripeCustomerId,
     required this.address,
   });
 
@@ -31,8 +33,9 @@ class Customer {
         "email": email,
         "phone": phone,
         "dateOfBirth": dateOfBirth,
-        "firebaseUID": firebaseUID,
-        "stripeID": stripeID,
+        "createdAt": createdAt,
+        "firebaseUid": firebaseUid,
+        "stripeCustomerId": stripeCustomerId,
         "address": address.toJson,
       };
 
@@ -42,10 +45,11 @@ class Customer {
       middlename: jsonData["middlename"],
       lastname: jsonData["lastname"],
       email: jsonData["email"],
+      createdAt: jsonData["createdAt"],
       phone: jsonData["phone"],
       dateOfBirth: jsonData["dateOfBirth"],
-      firebaseUID: jsonData["firebaseUID"],
-      stripeID: jsonData["stripeID"],
+      firebaseUid: jsonData["firebaseUid"],
+      stripeCustomerId: jsonData["stripeCustomerId"],
       address: Address.fromJson(jsonData["address"]),
     );
   }

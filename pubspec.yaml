@@ -42,6 +42,8 @@ dependencies:
   flutter_pw_validator: ^1.5.0
   email_validator: ^2.1.17
   flutter_multi_formatter: ^2.10.2
+  http: ^0.13.5
+  url_launcher: ^6.1.8
 
   # Firebase
   firebase_auth: ^4.2.5
