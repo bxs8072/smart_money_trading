@@ -8,21 +8,10 @@ class StripeApi {
 
   Future<Map<String, dynamic>> getCheckoutSession(
       {required String plan, required String customerId}) async {
-    String url = "$baseURL/sessions";
-
+    String url = "$baseURL/customers/checkout-session/$plan/$customerId";
+    const headers = {"Content-Type": "application/json"};
     try {
-      Response response = await http.post(
-        Uri.parse(url),
-        body: json.encode({
-          "plan": plan,
-          "customerId": customerId,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      );
-
-      print(response.body);
+      Response response = await http.get(Uri.parse(url), headers: headers);
       return jsonDecode(response.body);
     } catch (e) {
       rethrow;

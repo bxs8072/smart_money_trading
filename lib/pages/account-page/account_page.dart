@@ -48,6 +48,48 @@ class _AccountPageState extends State<AccountPage> {
                   key: widget.key,
                 ),
               ),
+              ListTile(
+                onTap: () {
+                  NavigationService(context).push(
+                    SubscriptionUI(customer: widget.customer),
+                  );
+                },
+                key: widget.key,
+                leading: Icon(
+                  Icons.inventory_sharp,
+                  color: ThemeService.primary,
+                  key: widget.key,
+                ),
+                title: Text(
+                  "Invoices",
+                  key: widget.key,
+                ),
+                subtitle: Text(
+                  "Check Your Invoices",
+                  key: widget.key,
+                ),
+              ),
+              ListTile(
+                onTap: () {
+                  NavigationService(context).push(
+                    SubscriptionUI(customer: widget.customer),
+                  );
+                },
+                key: widget.key,
+                leading: Icon(
+                  Icons.payment,
+                  color: ThemeService.primary,
+                  key: widget.key,
+                ),
+                title: Text(
+                  "Charges",
+                  key: widget.key,
+                ),
+                subtitle: Text(
+                  "Check Your Charges",
+                  key: widget.key,
+                ),
+              ),
             ],
           ),
         ),
