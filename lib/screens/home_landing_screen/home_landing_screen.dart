@@ -21,6 +21,9 @@ class HomeLandingScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
+          if (!snapshot.data!.exists) {
+            return SetupScreen(key: key);
+          }
           if (snapshot.data!["setup"]) {
             Customer customer = Customer.fromJson(snapshot.data);
             return HomeScreen(key: key, customer: customer);

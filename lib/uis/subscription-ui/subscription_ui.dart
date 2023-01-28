@@ -199,7 +199,7 @@ class _SubscriptionUIState extends State<SubscriptionUI> {
                                               Text(
                                                 Intl()
                                                     .date("MM.dd.yyyy")
-                                                    .format(subscription.startAt
+                                                    .format(subscription.endAt
                                                         .toDate()),
                                                 style: const TextStyle(
                                                   color: ThemeService.error,
@@ -286,7 +286,7 @@ class _SubscriptionUIState extends State<SubscriptionUI> {
                                       ),
                                       Text(
                                         Intl().date("MM.dd.yyyy").format(
-                                            subscription.startAt.toDate()),
+                                            subscription.endAt.toDate()),
                                         style: const TextStyle(
                                           fontWeight: FontWeight.w600,
                                           color: ThemeService.error,
