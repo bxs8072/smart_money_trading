@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
@@ -21,6 +22,14 @@ class _AccountPageState extends State<AccountPage> {
         SliverAppBar(
           key: widget.key,
           title: const Text("Account"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              child: const Text("Logout"),
+            ),
+          ],
         ),
         SliverToBoxAdapter(
           key: widget.key,

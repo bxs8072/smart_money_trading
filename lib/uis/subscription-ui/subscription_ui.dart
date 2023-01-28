@@ -7,7 +7,6 @@ import 'package:smart_money_trading/models/customer.dart';
 import 'package:smart_money_trading/models/subscription.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
-import 'package:smart_money_trading/uis/subscription-ui/subscription_card.dart';
 import 'package:theme_provider/theme_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -52,7 +51,7 @@ class _SubscriptionUIState extends State<SubscriptionUI> {
                       ),
                     );
                   } else {
-                    if (!snapshot.hasData) {
+                    if (!snapshot.data!.exists) {
                       return SliverToBoxAdapter(
                         child: Padding(
                           padding: const EdgeInsets.all(20.0),
