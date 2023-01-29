@@ -61,4 +61,67 @@ exports.onUpdateCustomer = functions
         );
     });
 
+exports.onAlertCreate = functions.firestore.document("optionAlerts/{uid}/optionAlerts/{alertId}")
+.onCreate(async (snapshot, context) => {
+    
+    const uid = context.params.uid; 
+    const data = snapshot.data();  
 
+    functions.logger.log(`Sending Notification About New Alert`);
+
+    const customer = await admin.firestore().collection("customers").doc(uid).get();
+    const token = customer.data().optionAlertToken;
+
+    const payload = {
+        notification: {
+            title: "Option Alert",
+            body: `Stock Ticker: ${data.ticker.title}, Strategy: ${data.strategy}, Strike Price: ${data.price}, ${data.description}`,
+        },
+        data: {
+            data: JSON.stringify(data),
+        }, 
+    };
+
+    const options = { priority: "high" };
+    await admin.messaging().sendToDevice(token, payload, options).then((response) => {
+        functions.logger.log(response);
+    }).catch((error) => {
+        functions.logger.error(error);
+    });
+});
+
+// async function test()  {
+//     console.log(`Sending Notification About New Alert`);
+
+//     const customer = await admin.firestore().collection("customers").doc("d3oPcGm74ReKYjW4QqgTJiMe4WO2").get();
+//     const token = customer.data().optionAlertToken;
+
+//     const data = {
+//         ticker: {
+//             title: "aapl",
+//         },
+//         strategy: "CALL",
+//         price: 150,
+//         description: "This is a description",
+//         createdAt: admin.firestore.Timestamp.now(),
+//     };
+
+//     const payload = {
+//         notification: {
+//             title: "Option Alert",
+//             body: `Stock Ticker: ${data.ticker.title}, Strategy: ${data.strategy}, Strike Price: ${data.price}, ${data.description}`,
+//         },
+//         data: {
+//             data: JSON.stringify(data),
+//         }, 
+//     };
+
+//     const options = { priority: "high" };
+//     await admin.messaging().sendToDevice(token, payload, options).then((response) => {
+//         console.log(response);
+//     }).catch((error) => {
+//         console.error(error);
+//     });
+// }
+
+// test()

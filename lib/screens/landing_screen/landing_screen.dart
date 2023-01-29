@@ -1,21 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_money_trading/screens/authentication_screen/authentication_screen.dart';
 import 'package:smart_money_trading/screens/home_landing_screen/home_landing_screen.dart';
-import 'package:smart_money_trading/screens/setup_screen/setup_screen.dart';
 
-class LandingScreen extends StatefulWidget {
+class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
 
-  @override
-  State<LandingScreen> createState() => _LandingScreenState();
-}
-
-class _LandingScreenState extends State<LandingScreen>
-    with TickerProviderStateMixin {
-  var currentIndex = 0;
-
-  TabController get tabController => TabController(length: 3, vsync: this);
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
@@ -23,16 +14,16 @@ class _LandingScreenState extends State<LandingScreen>
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
-              key: widget.key,
+              key: key,
               child: CircularProgressIndicator(
-                key: widget.key,
+                key: key,
               ),
             );
           } else {
             if (snapshot.hasData) {
-              return HomeLandingScreen(key: widget.key);
+              return HomeLandingScreen(key: key);
             } else {
-              return AuthenticationScreen(key: widget.key);
+              return AuthenticationScreen(key: key);
             }
           }
         });

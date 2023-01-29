@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:theme_provider/theme_provider.dart';
 

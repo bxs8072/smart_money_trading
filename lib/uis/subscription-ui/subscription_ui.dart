@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/apis/stripe_api.dart';
@@ -21,6 +23,7 @@ class SubscriptionUI extends StatefulWidget {
 class _SubscriptionUIState extends State<SubscriptionUI> {
   StripeApi stripeApi = StripeApi();
   SubscriptionApi subscriptionApi = SubscriptionApi();
+
   @override
   Widget build(BuildContext context) {
     return ThemeConsumer(
@@ -88,7 +91,6 @@ class _SubscriptionUIState extends State<SubscriptionUI> {
                                     customerId:
                                         widget.customer.stripeCustomerId!,
                                   );
-
                                   String checkoutUrl = response["url"];
                                   await launchUrl(
                                     Uri.parse(checkoutUrl),

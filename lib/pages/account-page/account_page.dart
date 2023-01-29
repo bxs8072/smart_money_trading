@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
+import 'package:smart_money_trading/uis/admin_panel_ui/admin_panel_ui.dart';
 import 'package:smart_money_trading/uis/subscription-ui/subscription_ui.dart';
 
 class AccountPage extends StatefulWidget {
@@ -36,6 +37,29 @@ class _AccountPageState extends State<AccountPage> {
           child: Column(
             key: widget.key,
             children: [
+              ListTile(
+                onTap: () {
+                  NavigationService(context).push(
+                    AdminPanelUI(
+                      key: widget.key,
+                    ),
+                  );
+                },
+                key: widget.key,
+                leading: Icon(
+                  Icons.admin_panel_settings,
+                  color: ThemeService.primary,
+                  key: widget.key,
+                ),
+                title: Text(
+                  "Admin Panel",
+                  key: widget.key,
+                ),
+                subtitle: Text(
+                  "Create Alerts and Notifications",
+                  key: widget.key,
+                ),
+              ),
               ListTile(
                 onTap: () {
                   NavigationService(context).push(
