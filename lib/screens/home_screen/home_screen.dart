@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:smart_money_trading/pages/account-page/account_page.dart';
+import 'package:smart_money_trading/pages/dashboard/dashboard.dart';
 import 'package:smart_money_trading/services/notification_service.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
 
   List<Widget> get pages => [
-        AccountPage(key: widget.key, customer: widget.customer),
+        Dashboard(key: widget.key, person: widget.customer),
         AccountPage(key: widget.key, customer: widget.customer),
         AccountPage(key: widget.key, customer: widget.customer),
       ];

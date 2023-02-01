@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_money_trading/services/size_service.dart';
-import 'package:smart_money_trading/services/theme_services/dark_theme.dart';
-import 'package:smart_money_trading/services/theme_services/light_theme.dart';
-import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 
 class CustomTile extends StatelessWidget {
   final Function() onTap;
@@ -12,12 +9,14 @@ class CustomTile extends StatelessWidget {
   final double height;
   final double weight;
   final Color color;
+  final Image image;
   const CustomTile({
     Key? key,
     required this.onTap,
     required this.top,
     required this.title,
     required this.height,
+    required this.image,
     required this.weight,
     required this.color,
   }) : super(key: key);
@@ -33,6 +32,10 @@ class CustomTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Container(
               decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: image.image,
+                  fit: BoxFit.cover,
+                ),
                 borderRadius: BorderRadius.circular(20),
                 color: color,
               ),
@@ -44,7 +47,7 @@ class CustomTile extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.exo2(
                   fontSize: 25.0,
-                  color: ThemeService.secondary,
+                  color: const Color.fromARGB(255, 238, 241, 242),
                 ),
               ),
             ),

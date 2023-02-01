@@ -19,14 +19,18 @@ class CustomTilesBuilder extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomTile(
-                  onTap: () {},
-                  top: "SM NEWS",
-                  title: "NEWS",
-                  height: .4,
-                  weight: .25,
-                  color: ThemeService.light),
+                onTap: () {},
+                top: "SM NEWS",
+                title: "NEWS",
+                height: .4,
+                weight: .23,
+                image: Image.asset(
+                  "assets/trading-tips/news.jpg",
+                ),
+                color: ThemeService.dark,
+              ),
               const SizedBox(
-                width: 10,
+                width: 8,
               ),
               Column(
                 children: [
@@ -34,17 +38,23 @@ class CustomTilesBuilder extends StatelessWidget {
                     onTap: () {},
                     top: "Market Insights",
                     title: "Market Insights",
-                    height: 0.18,
+                    height: 0.17,
                     weight: 0.20,
                     color: ThemeService.dark,
+                    image: Image.asset(
+                      "assets/market-insight/market-insight.jpg",
+                    ),
                   ),
                   CustomTile(
                     onTap: () {},
                     top: "Trading Tips",
-                    title: "Trading Tips",
-                    height: 0.18,
+                    title: "Trading Strategies \n& Risk Management",
+                    height: 0.17,
                     weight: 0.20,
                     color: ThemeService.dark,
+                    image: Image.asset(
+                      "assets/trading-tips/trading-tips.jpg",
+                    ),
                   ),
                 ],
               ),

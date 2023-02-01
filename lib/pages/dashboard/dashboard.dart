@@ -2,18 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_money_trading/services/size_service.dart';
-import 'package:smart_money_trading/services/theme_services/dark_theme.dart';
-import 'package:smart_money_trading/services/theme_services/light_theme.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_tile/custom_tile.dart';
 import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_tiles_builder.dart';
 
 class Dashboard extends StatefulWidget {
   final Customer person;
-  final List<String> followedPerformers;
-  const Dashboard(
-      {Key? key, required this.person, required this.followedPerformers})
-      : super(key: key);
+  const Dashboard({Key? key, required this.person}) : super(key: key);
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -63,23 +58,26 @@ class _DashboardState extends State<Dashboard> {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 5,
+              vertical: 1,
               horizontal: 10,
             ),
             child: CustomTile(
               onTap: () {},
+              image: Image.asset(
+                "assets/trading-tips/biga-bull.jpg",
+              ),
               top: "Daily Trade Notifications",
               title: "Daily Trades",
-              height: .25,
+              height: .23,
               weight: double.infinity,
-              color: ThemeService.light,
+              color: ThemeService.dark,
             ),
           ),
         ),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: 10,
+              vertical: 5,
               horizontal: 10,
             ),
             child: CustomTilesBuilder(

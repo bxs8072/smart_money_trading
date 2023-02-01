@@ -1,16 +1,17 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_formatter/formatters/phone_input_formatter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/address.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 
 class SetupScreen extends StatefulWidget {
-  const SetupScreen({super.key});
+  const SetupScreen({
+    super.key,
+  });
 
   @override
   State<SetupScreen> createState() => _SetupScreenState();
@@ -72,11 +73,12 @@ class _SetupScreenState extends State<SetupScreen> {
                 key: widget.key,
                 children: [
                   Text(
-                    "SETUP ACCOUNT",
+                    "Account Registration",
                     key: widget.key,
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.035,
-                      fontWeight: FontWeight.w700,
+                    style: GoogleFonts.baskervville(
+                      fontSize: SizeService(context).height * 0.030,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
                     ),
                   ),
                   SizedBox(height: SizeService(context).verticalPadding * 1.5),
@@ -95,9 +97,14 @@ class _SetupScreenState extends State<SetupScreen> {
                               controller: firstnameController,
                               keyboardType: TextInputType.text,
                               decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 hintText: "John",
                                 labelText: "First Name",
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black54,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -109,9 +116,14 @@ class _SetupScreenState extends State<SetupScreen> {
                               controller: middlenameController,
                               keyboardType: TextInputType.text,
                               decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 hintText: "M",
                                 labelText: "Middle Name",
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black54,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -123,9 +135,14 @@ class _SetupScreenState extends State<SetupScreen> {
                               controller: lastnameController,
                               keyboardType: TextInputType.text,
                               decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 hintText: "Cena",
                                 labelText: "Last Name",
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black54,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -137,9 +154,14 @@ class _SetupScreenState extends State<SetupScreen> {
                               controller: phoneController,
                               keyboardType: TextInputType.phone,
                               decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 hintText: "(###) ### - ####",
                                 labelText: "Phone",
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black54,
+                                  ),
+                                ),
                               ),
                               inputFormatters: [
                                 PhoneInputFormatter(
@@ -198,9 +220,14 @@ class _SetupScreenState extends State<SetupScreen> {
                               controller: line1Controller,
                               keyboardType: TextInputType.text,
                               decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 hintText: "124 Main St",
                                 labelText: "Address",
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black54,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -212,9 +239,14 @@ class _SetupScreenState extends State<SetupScreen> {
                               controller: line2Controller,
                               keyboardType: TextInputType.text,
                               decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 hintText: "Apt 117",
                                 labelText: "Address 2 (Optional)",
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black54,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -226,9 +258,14 @@ class _SetupScreenState extends State<SetupScreen> {
                               controller: cityController,
                               keyboardType: TextInputType.text,
                               decoration: const InputDecoration(
-                                border: OutlineInputBorder(),
                                 hintText: "Arlington",
                                 labelText: "City",
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Colors.black54,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -243,9 +280,15 @@ class _SetupScreenState extends State<SetupScreen> {
                                     controller: stateController,
                                     keyboardType: TextInputType.text,
                                     decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
                                       hintText: "Texas",
                                       labelText: "State",
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.black54,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -259,9 +302,15 @@ class _SetupScreenState extends State<SetupScreen> {
                                     controller: zipcodeController,
                                     keyboardType: TextInputType.number,
                                     decoration: const InputDecoration(
-                                      border: OutlineInputBorder(),
                                       hintText: "19920",
                                       labelText: "Postal Code",
+                                      labelStyle:
+                                          TextStyle(color: Colors.black),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.black54,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -271,6 +320,10 @@ class _SetupScreenState extends State<SetupScreen> {
                           SizedBox(
                               height: SizeService(context).verticalPadding),
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              elevation: 25,
+                            ),
                             onPressed: () {
                               FirebaseFirestore.instance
                                   .collection('customers')
@@ -291,7 +344,15 @@ class _SetupScreenState extends State<SetupScreen> {
                                 ).toJson,
                               });
                             },
-                            child: Text("CREATE ACCOUNT", key: widget.key),
+                            child: Text(
+                              "Create Account",
+                              key: widget.key,
+                              style: GoogleFonts.baskervville(
+                                fontSize: SizeService(context).height * 0.025,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ],
                       ),

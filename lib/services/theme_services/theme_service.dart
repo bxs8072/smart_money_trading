@@ -5,7 +5,7 @@ class ThemeService {
   static const String lightId = "light";
   static const String darkId = "dark";
 
-  static const Color primary = Color(0xFF006DFE);
+  static const Color primary = Color.fromARGB(255, 34, 34, 34);
   static const Color secondary = Color(0xFF606A72);
   static const Color error = Color(0xFFDE233D);
   static const Color success = Color(0xFF089F3D);
