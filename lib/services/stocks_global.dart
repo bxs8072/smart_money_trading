@@ -2,7 +2,6 @@ import 'package:smart_money_trading/models/ticker.dart';
 
 List<String> optyionTypeList = [
   "butterfly",
-  "buy write",
   "call spread",
   "condor",
   "iron butterfly",
@@ -10,10 +9,6 @@ List<String> optyionTypeList = [
   "outright call",
   "outright put",
   "put spread",
-  "straddle",
-  "strangle",
-  "protective put",
-  "ratio spread",
 ];
 
 List<Ticker> stockTickerList = [

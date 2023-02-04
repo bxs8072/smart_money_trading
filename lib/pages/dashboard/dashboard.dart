@@ -1,6 +1,12 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_money_trading/models/ticker_notification.dart';
+import 'package:smart_money_trading/pages/dashboard/trades_slider.dart';
+import 'package:smart_money_trading/services/notification_service.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_tile/custom_tile.dart';
@@ -61,16 +67,24 @@ class _DashboardState extends State<Dashboard> {
               vertical: 1,
               horizontal: 10,
             ),
-            child: CustomTile(
-              onTap: () {},
-              image: Image.asset(
-                "assets/trading-tips/biga-bull.jpg",
-              ),
-              top: "Daily Trade Notifications",
-              title: "Daily Trades",
-              height: .23,
-              weight: double.infinity,
-              color: ThemeService.dark,
+            child: StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection("optionAlerts")
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .collection("optionAlerts")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  List<TickerNotification> list = snapshot.data!.docs
+                      .map((e) => TickerNotification.fromDoc(e))
+                      .toList();
+                  return TradesSlider(list: list);
+                }
+              },
             ),
           ),
         ),

@@ -5,14 +5,14 @@ class TickerNotification {
   final Ticker ticker;
   final String strategy;
   final String description;
-  final double price;
+  final List<double> prices;
   final Timestamp createdAt;
 
   TickerNotification({
     required this.ticker,
     required this.strategy,
     required this.description,
-    required this.price,
+    required this.prices,
     required this.createdAt,
   });
 
@@ -20,7 +20,7 @@ class TickerNotification {
         "ticker": ticker.toJson,
         "strategy": strategy,
         "description": description,
-        "price": price,
+        "prices": prices,
         "createdAt": createdAt,
       };
 
@@ -29,7 +29,17 @@ class TickerNotification {
         ticker: Ticker.fromJson(jsonData["ticker"]),
         strategy: jsonData["strategy"],
         description: jsonData["description"],
-        price: jsonData["price"],
+        prices: jsonData["prices"],
         createdAt: jsonData["createdAt"]);
+  }
+
+  factory TickerNotification.fromDoc(DocumentSnapshot jsonData) {
+    return TickerNotification(
+      ticker: Ticker.fromJson(jsonData.get('ticker')),
+      strategy: jsonData.get('strategy'),
+      description: jsonData.get('description'),
+      prices: List<double>.from(jsonData.get('prices')),
+      createdAt: jsonData.get('createdAt'),
+    );
   }
 }

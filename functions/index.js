@@ -65,17 +65,35 @@ exports.onAlertCreate = functions.firestore.document("optionAlerts/{uid}/optionA
 .onCreate(async (snapshot, context) => {
     
     const uid = context.params.uid; 
-    const data = snapshot.data();  
+    const data = snapshot.data(); 
+    
+    console.log(data);
 
     functions.logger.log(`Sending Notification About New Alert`);
 
     const customer = await admin.firestore().collection("customers").doc(uid).get();
     const token = customer.data().optionAlertToken;
 
+    const prices = data.prices;
+
+    strikePriceMessage = "";
+
+    if(prices.length == 1) {
+        strikePriceMessage = "Strike Price: $" + prices[0];
+    }
+
+    if(prices.length == 2) { 
+        strikePriceMessage = "Strike Price 1: $" + prices[0] + ", Strike Price 2: $" + prices[1];
+    }
+
+    if(prices.length == 4) { 
+        strikePriceMessage = "Strike Price 1: $" + prices[0] + ", Strike Price 2: $" + prices[1] + ", Strike Price 3: $" + prices[2] + ", Strike Price 4: $" + prices[3];
+    }
+
     const payload = {
         notification: {
             title: "Option Alert",
-            body: `Stock Ticker: ${data.ticker.title}, Strategy: ${data.strategy}, Strike Price: ${data.price}, ${data.description}`,
+            body: `Stock Ticker: ${data.ticker.title}, Strategy: ${data.strategy}, ${strikePriceMessage}, ${data.description}`,
         },
         data: {
             data: JSON.stringify(data),
@@ -90,38 +108,3 @@ exports.onAlertCreate = functions.firestore.document("optionAlerts/{uid}/optionA
     });
 });
 
-// async function test()  {
-//     console.log(`Sending Notification About New Alert`);
-
-//     const customer = await admin.firestore().collection("customers").doc("d3oPcGm74ReKYjW4QqgTJiMe4WO2").get();
-//     const token = customer.data().optionAlertToken;
-
-//     const data = {
-//         ticker: {
-//             title: "aapl",
-//         },
-//         strategy: "CALL",
-//         price: 150,
-//         description: "This is a description",
-//         createdAt: admin.firestore.Timestamp.now(),
-//     };
-
-//     const payload = {
-//         notification: {
-//             title: "Option Alert",
-//             body: `Stock Ticker: ${data.ticker.title}, Strategy: ${data.strategy}, Strike Price: ${data.price}, ${data.description}`,
-//         },
-//         data: {
-//             data: JSON.stringify(data),
-//         }, 
-//     };
-
-//     const options = { priority: "high" };
-//     await admin.messaging().sendToDevice(token, payload, options).then((response) => {
-//         console.log(response);
-//     }).catch((error) => {
-//         console.error(error);
-//     });
-// }
-
-// test()

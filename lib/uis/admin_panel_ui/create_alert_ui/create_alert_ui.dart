@@ -18,8 +18,12 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
   String selectedOptionStrategy = optyionTypeList[0];
 
   String optionType = "buy";
-
-  TextEditingController strikePriceController = TextEditingController();
+  List<TextEditingController> strikePriceControllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
   TextEditingController strategyDescriptionController = TextEditingController();
 
   @override
@@ -113,8 +117,37 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                             )
                             .toList(),
                         onChanged: (val) {
+                          List<String> optyionTypeLists = [
+                            "butterfly",
+                            "call spread",
+                            "condor",
+                            "iron butterfly",
+                            "iron condor",
+                            "outright call",
+                            "outright put",
+                            "put spread",
+                          ];
+
                           setState(() {
                             selectedOptionStrategy = val!;
+                            if (val == "call spread" || val == "put spread") {
+                              strikePriceControllers = [
+                                TextEditingController(),
+                                TextEditingController()
+                              ];
+                            }
+
+                            if (val == "butterfly" ||
+                                val == "condor" ||
+                                val == "iron condor" ||
+                                val == "iron butterfly") {
+                              strikePriceControllers = [
+                                TextEditingController(),
+                                TextEditingController(),
+                                TextEditingController(),
+                                TextEditingController(),
+                              ];
+                            }
                           });
                         },
                       ),
@@ -154,12 +187,22 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    TextFormField(
-                      controller: strikePriceController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                          labelText: "Strike Price",
-                          border: OutlineInputBorder()),
+                    Column(
+                      children: strikePriceControllers
+                          .map(
+                            (strikePriceController) => Container(
+                              margin: const EdgeInsets.symmetric(vertical: 5),
+                              child: TextFormField(
+                                controller: strikePriceController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  labelText: "Strike Price",
+                                  border: OutlineInputBorder(),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
@@ -185,9 +228,11 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                               strategy: selectedOptionStrategy,
                               description:
                                   strategyDescriptionController.text.trim(),
-                              price: double.parse(
-                                strikePriceController.text.trim(),
-                              ),
+                              prices: strikePriceControllers
+                                  .map((e) => double.parse(
+                                        e.text.trim(),
+                                      ))
+                                  .toList(),
                               createdAt: Timestamp.now(),
                             ).toJson)
                             .then((value) => Navigator.pop(context));
