@@ -19,4 +19,18 @@ class BenzingaApi {
     print(results);
     return results;
   }
+
+  Future<List<Map<String, dynamic>>> getNewsByCategory(String category) async {
+    Uri uri = Uri.parse(
+        'https://api.benzinga.com/api/v2/news?pageSize=30&displayOutput=headline&sort=created%3Adesc&topics=$category&token=$benzingaApiKey');
+
+    Response response =
+        await client.get(uri, headers: {"accept": "application/json"});
+
+    List<Map<String, dynamic>> results =
+        List<Map<String, dynamic>>.from(json.decode(response.body));
+
+    print(results);
+    return results;
+  }
 }
