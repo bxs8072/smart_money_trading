@@ -19,83 +19,99 @@ class _NewsSliderState extends State<NewsSlider> {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         key: widget.key,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "Top News",
+              textAlign: TextAlign.start,
+              style: GoogleFonts.lato(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           Column(
             children: [
-              CarouselSlider(
-                items: widget.list.map((Map<String, dynamic> data) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage(
-                                data["image"][0]["url"],
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12.0),
+                child: CarouselSlider(
+                  items: widget.list.map((Map<String, dynamic> data) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  data["image"][0]["url"],
+                                ),
+                                opacity: .9,
+                                colorFilter: const ColorFilter.mode(
+                                  Colors.black87,
+                                  BlendMode.colorDodge,
+                                ),
+                                fit: BoxFit.cover,
                               ),
-                              opacity: .9,
-                              colorFilter: const ColorFilter.mode(
-                                Colors.black87,
-                                BlendMode.colorDodge,
-                              ),
-                              fit: BoxFit.cover,
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(12.0),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Color.fromARGB(31, 12, 10, 12),
+                                  offset: Offset(2, 2),
+                                  blurRadius: 2,
+                                )
+                              ],
                             ),
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(12.0),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color.fromARGB(31, 12, 10, 12),
-                                offset: Offset(2, 2),
-                                blurRadius: 2,
-                              )
-                            ],
-                          ),
-                          alignment: Alignment.center,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                data['title'],
-                                style: GoogleFonts.lato(
-                                  fontSize: 12.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w900,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  data['title'],
+                                  style: GoogleFonts.lato(
+                                    fontSize: 12.0,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w900,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                data['author'],
-                                style: GoogleFonts.lato(
-                                  letterSpacing: 0.2,
-                                  color: Colors.white,
+                                const SizedBox(height: 10),
+                                Text(
+                                  data['author'],
+                                  style: GoogleFonts.lato(
+                                    letterSpacing: 0.2,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                      },
+                    );
+                  }).toList(),
+                  options: CarouselOptions(
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        current = index;
+                      });
                     },
-                  );
-                }).toList(),
-                options: CarouselOptions(
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      current = index;
-                    });
-                  },
-                  aspectRatio: 9 / 14,
-                  viewportFraction: 2.0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 10),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
+                    aspectRatio: 9 / 14,
+                    viewportFraction: 2.0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 10),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                  ),
                 ),
               ),
               const SizedBox(
