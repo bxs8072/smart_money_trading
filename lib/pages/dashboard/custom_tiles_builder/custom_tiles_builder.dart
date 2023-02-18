@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smart_money_trading/apis/benzinga_api.dart';
 import 'package:smart_money_trading/models/customer.dart';
+import 'package:smart_money_trading/pages/dashboard/news_slider.dart';
 import 'package:smart_money_trading/services/theme_services/dark_theme.dart';
 import 'package:smart_money_trading/services/theme_services/light_theme.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
@@ -18,17 +20,12 @@ class CustomTilesBuilder extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomTile(
-                onTap: () {},
-                top: "SM NEWS",
-                title: "NEWS",
-                height: .4,
-                weight: .23,
-                image: Image.asset(
-                  "assets/trading-tips/news.jpg",
-                ),
-                color: ThemeService.dark,
-              ),
+              FutureBuilder<List<Map<String, dynamic>>>(
+                  initialData: [],
+                  future: BenzingaApi().getNews(),
+                  builder: (context, snapshot) {
+                    return Expanded(child: NewsSlider(list: snapshot.data!));
+                  }),
               const SizedBox(
                 width: 8,
               ),

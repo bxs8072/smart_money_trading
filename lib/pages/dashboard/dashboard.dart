@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_money_trading/apis/benzinga_api.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_money_trading/models/ticker_notification.dart';
@@ -23,6 +24,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
+    BenzingaApi().getNews();
     return CustomScrollView(
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
