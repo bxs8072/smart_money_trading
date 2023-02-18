@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_money_trading/apis/benzinga_api.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:smart_money_trading/services/size_service.dart';
+import 'package:smart_money_trading/services/theme_services/theme_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsPage extends StatefulWidget {
   final Customer customer;
@@ -81,11 +83,26 @@ class _NewsPageState extends State<NewsPage> {
               List<Map<String, dynamic>> list = snapshot.data!
                   .where((element) => element['image'].length > 1)
                   .toList();
+
               return SliverList(
                   delegate: SliverChildBuilderDelegate((context, i) {
+                List<String> stocks = List<Map<String, dynamic>>.from(
+                        list[i]['stocks'])
+                    .map((Map<String, dynamic> item) => item['name'].toString())
+                    .toList();
+
                 return Card(
                   elevation: 0.00,
                   child: ListTile(
+                    onTap: () async {
+                      await launchUrl(
+                        Uri.parse(list[i]['url']),
+                        mode: LaunchMode.inAppWebView,
+                        webOnlyWindowName: list[i]['url'],
+                        webViewConfiguration: const WebViewConfiguration(
+                            enableDomStorage: true, enableJavaScript: true),
+                      );
+                    },
                     title: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ClipRRect(
@@ -105,6 +122,20 @@ class _NewsPageState extends State<NewsPage> {
                         Text(
                           '~ ${list[i]["author"]}',
                           textAlign: TextAlign.end,
+                        ),
+                        Wrap(
+                          direction: Axis.horizontal,
+                          children: stocks
+                              .map(
+                                (e) => TextButton(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: Colors.blue,
+                                  ),
+                                  onPressed: () {},
+                                  child: Text(e),
+                                ),
+                              )
+                              .toList(),
                         ),
                       ],
                     ),
