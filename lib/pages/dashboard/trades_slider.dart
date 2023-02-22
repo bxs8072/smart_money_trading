@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/ticker_notification.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 
@@ -43,9 +44,9 @@ class _TradesSliderState extends State<TradesSlider> {
                 // );
               },
               child: Text(
-                "View All",
-                style: GoogleFonts.lato(
-                  fontWeight: FontWeight.w600,
+                "Trade archives",
+                style: GoogleFonts.exo2(
+                  fontWeight: FontWeight.w400,
                 ),
                 key: widget.key,
               ),
@@ -59,51 +60,98 @@ class _TradesSliderState extends State<TradesSlider> {
                     builder: (BuildContext context) {
                       return GestureDetector(
                         onTap: () {},
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                t.ticker.image,
+                        child: Material(
+                          elevation: 100,
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: t.optiontype == "buy"
+                                    ? const AssetImage(
+                                        './assets/logos/biga-bull.jpg',
+                                      )
+                                    : const AssetImage(
+                                        './assets/logos/bear-market.jpeg',
+                                      ),
+                                opacity: 0.09,
+                                // colorFilter: const ColorFilter.mode(
+                                //   Colors.black87,
+                                //   BlendMode.colorDodge,
+                                // ),
+                                fit: BoxFit.cover,
                               ),
-                              opacity: .9,
-                              colorFilter: const ColorFilter.mode(
-                                Colors.black87,
-                                BlendMode.colorDodge,
-                              ),
-                              fit: BoxFit.cover,
+                              // color: t.optiontype == "buy"
+                              //     ? Colors.green
+                              //     : Colors.red,
+                              borderRadius: BorderRadius.circular(12.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: t.optiontype == "buy"
+                                      ? const Color.fromARGB(255, 14, 217, 92)
+                                      : const Color.fromARGB(255, 255, 79, 52),
+                                  offset: const Offset(5, 5),
+                                  blurRadius: 5,
+                                )
+                              ],
                             ),
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(12.0),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: Color.fromARGB(31, 12, 10, 12),
-                                offset: Offset(2, 2),
-                                blurRadius: 2,
-                              )
-                            ],
-                          ),
-                          alignment: Alignment.center,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                t.ticker.title.toUpperCase(),
-                                style: GoogleFonts.lato(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w900,
+                            alignment: Alignment.center,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  t.ticker.title.toUpperCase(),
+                                  style: GoogleFonts.exo2(
+                                    fontSize: 20.0,
+                                    color: t.optiontype == "buy"
+                                        ? Colors.black
+                                        : Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                "STRATEGY: ${t.strategy.toUpperCase()}",
-                                style: GoogleFonts.lato(
-                                  letterSpacing: 0.2,
-                                  color: Colors.white,
+                                const SizedBox(height: 10),
+                                Text(
+                                  "${t.optiontype.toUpperCase()}: ${t.strategy.toUpperCase()} @ \$${t.totalcost}",
+                                  style: GoogleFonts.exo2(
+                                    letterSpacing: 0.2,
+                                    color: t.optiontype == "buy"
+                                        ? Colors.black
+                                        : Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  "Strike prices:",
+                                  style: GoogleFonts.exo2(
+                                    letterSpacing: 0.2,
+                                    color: t.optiontype == "buy"
+                                        ? Colors.black
+                                        : Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                for (var item in t.strikeprices)
+                                  Text(
+                                    "\$ $item",
+                                    style: GoogleFonts.exo2(
+                                      letterSpacing: 0.2,
+                                      color: t.optiontype == "buy"
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                Text(
+                                  "Exp. Date: ${DateFormat.yMd().format(t.expoDate.toDate())}",
+                                  style: GoogleFonts.exo2(
+                                    letterSpacing: 0.2,
+                                    color: t.optiontype == "buy"
+                                        ? Colors.black
+                                        : Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -116,7 +164,7 @@ class _TradesSliderState extends State<TradesSlider> {
                       current = index;
                     });
                   },
-                  height: SizeService(context).height * 0.23,
+                  height: SizeService(context).height * 0.25,
                   aspectRatio: 16 / 9,
                   viewportFraction: 1.0,
                   enableInfiniteScroll: true,

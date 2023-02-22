@@ -16,7 +16,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, badge: true, sound: true);
 
-  print("Handling a background message ${message.messageId}");
+  // print("Handling a background message ${message.messageId}");
 }
 
 Future<void> main() async {
