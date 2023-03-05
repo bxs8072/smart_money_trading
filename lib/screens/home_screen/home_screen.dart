@@ -23,90 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
 
   List<Widget> get pages => [
-        Dashboard(key: widget.key, person: widget.customer),
+        Dashboard(key: widget.key, customer: widget.customer),
         NewsPage(key: widget.key, customer: widget.customer),
         AccountPage(key: widget.key, customer: widget.customer),
       ];
-
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  Future<void> requestPermission() async {
-    NotificationSettings notificationSettings =
-        await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      announcement: true,
-      badge: true,
-      carPlay: true,
-      criticalAlert: true,
-      provisional: true,
-      sound: true,
-    );
-
-    switch (notificationSettings.authorizationStatus) {
-      case AuthorizationStatus.authorized:
-        print("User Granted Permission");
-        break;
-      case AuthorizationStatus.provisional:
-        print("User Granted Provisional Permission");
-        break;
-      case AuthorizationStatus.notDetermined:
-        print("Not Determined Permission");
-        break;
-      default:
-        print("User Declined Permission");
-        break;
-    }
-  }
-
-  Future<void> createOptionAlertToken() async {
-    await FirebaseFirestore.instance
-        .collection("subscriptions")
-        .doc(widget.customer.stripeCustomerId!)
-        .get()
-        .then((value) async {
-      if (value.exists) {
-        if (value.get("status") == "active") {
-          await FirebaseMessaging.instance.getToken().then((token) async {
-            value.reference.update({"optionAlertToken": "token"});
-          });
-        }
-      }
-    });
-  }
-
-  NotificationService notificationService = NotificationService.instance;
-  @override
-  void initState() {
-    super.initState();
-    createOptionAlertToken();
-    requestPermission();
-
-    notificationService.initialize(context);
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      Map<String, dynamic> data = json.decode(message.data["data"]);
-      notificationService.showNotification(
-        notification: MyNotification(
-          id: 0,
-          title: message.notification!.title!,
-          body: message.notification!.body!,
-          data: data,
-        ),
-      );
-    });
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      Map<String, dynamic> data = json.decode(message.data["data"]);
-      notificationService.showNotification(
-        notification: MyNotification(
-          id: 1,
-          title: message.notification!.title!,
-          body: message.notification!.body!,
-          data: data,
-        ),
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

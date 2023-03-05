@@ -148,6 +148,13 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                                 TextEditingController(),
                               ];
                             }
+
+                            if (val == "outright call" ||
+                                val == "outright put") {
+                              strikePriceControllers = [
+                                TextEditingController()
+                              ];
+                            }
                           });
                         },
                       ),
