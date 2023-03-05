@@ -1,35 +1,39 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:smart_money_trading/models/ticker.dart';
 
 class TickerNotification {
+  final String? docId;
   final Ticker ticker;
   final String strategy;
   final String description;
-  final List<double> strikeprices;
-  final String totalcost;
-  final String optiontype;
+  final List<double> prices;
+  final double totalCost;
+  final String optionType;
   final Timestamp createdAt;
-  final Timestamp expoDate;
+  final Timestamp expiresAt;
 
   TickerNotification(
-      {required this.ticker,
+      {this.docId,
+      required this.ticker,
       required this.strategy,
       required this.description,
-      required this.strikeprices,
-      required this.totalcost,
-      required this.optiontype,
+      required this.prices,
+      required this.totalCost,
+      required this.optionType,
       required this.createdAt,
-      required this.expoDate});
+      required this.expiresAt});
 
   Map<String, dynamic> get toJson => {
         "ticker": ticker.toJson,
         "strategy": strategy,
         "description": description,
-        "strikeprices": strikeprices,
-        "totalcost": totalcost,
-        "optiontype": optiontype,
+        "prices": prices,
+        "totalCost": totalCost,
+        "optionType": optionType,
         "createdAt": createdAt,
-        "expoDate": expoDate,
+        "expiresAt": expiresAt,
       };
 
   factory TickerNotification.fromJson(dynamic jsonData) {
@@ -37,24 +41,25 @@ class TickerNotification {
       ticker: Ticker.fromJson(jsonData["ticker"]),
       strategy: jsonData["strategy"],
       description: jsonData["description"],
-      strikeprices: jsonData["strikeprices"],
-      totalcost: jsonData["totalcost"],
-      optiontype: jsonData["optiontype"],
+      prices: List<double>.from(jsonData["prices"]),
+      totalCost: double.parse(jsonData["totalCost"].toString()),
+      optionType: jsonData["optionType"],
       createdAt: jsonData["createdAt"],
-      expoDate: jsonData["expoDate"],
+      expiresAt: jsonData["expiresAt"],
     );
   }
 
   factory TickerNotification.fromDoc(DocumentSnapshot jsonData) {
     return TickerNotification(
-      ticker: Ticker.fromJson(jsonData.get('ticker')),
-      strategy: jsonData.get('strategy'),
-      description: jsonData.get('description'),
-      totalcost: jsonData.get('totalcost'),
-      optiontype: jsonData.get('optiontype'),
-      strikeprices: List<double>.from(jsonData.get('strikeprices')),
-      createdAt: jsonData.get('createdAt'),
-      expoDate: jsonData.get('expoDate'),
+      docId: jsonData.id,
+      ticker: Ticker.fromJson(jsonData["ticker"]),
+      strategy: jsonData["strategy"],
+      description: jsonData["description"],
+      prices: List<double>.from(jsonData["prices"]),
+      totalCost: double.parse(jsonData["totalCost"].toString()),
+      optionType: jsonData["optionType"],
+      createdAt: jsonData["createdAt"],
+      expiresAt: jsonData["expiresAt"],
     );
   }
 }

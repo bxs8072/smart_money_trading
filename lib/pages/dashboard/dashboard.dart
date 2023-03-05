@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_money_trading/apis/benzinga_api.dart';
-import 'package:smart_money_trading/app_drawer/app_drawer.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_money_trading/models/ticker_notification.dart';
@@ -11,8 +10,8 @@ import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_tiles_builder.dart';
 
 class Dashboard extends StatefulWidget {
-  final Customer person;
-  const Dashboard({Key? key, required this.person}) : super(key: key);
+  final Customer customer;
+  const Dashboard({Key? key, required this.customer}) : super(key: key);
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -75,7 +74,7 @@ class _DashboardState extends State<Dashboard> {
               horizontal: 10,
             ),
             child: CustomTilesBuilder(
-              person: widget.person,
+              person: widget.customer,
               key: widget.key,
             ),
           ),

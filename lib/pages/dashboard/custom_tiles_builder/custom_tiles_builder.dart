@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:smart_money_trading/apis/benzinga_api.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:smart_money_trading/pages/dashboard/news_slider.dart';
+import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/theme_services/dark_theme.dart';
 import 'package:smart_money_trading/services/theme_services/light_theme.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_tile/custom_tile.dart';
+import 'package:smart_money_trading/uis/trade_detail_ui/trade_detail_ui.dart';
 
 class CustomTilesBuilder extends StatelessWidget {
   final Customer person;

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/ticker_notification.dart';
+import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/size_service.dart';
+import 'package:smart_money_trading/uis/trade_detail_ui/trade_detail_ui.dart';
 
 class TradesSlider extends StatefulWidget {
   final List<TickerNotification> list;
@@ -59,14 +61,18 @@ class _TradesSliderState extends State<TradesSlider> {
                   return Builder(
                     builder: (BuildContext context) {
                       return GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          NavigationService(context).push(
+                            TradeDetailUI(tickerNotification: t),
+                          );
+                        },
                         child: Material(
                           elevation: 100,
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: t.optiontype == "buy"
+                                image: t.optionType == "buy"
                                     ? const AssetImage(
                                         './assets/logos/biga-bull.jpg',
                                       )
@@ -86,7 +92,7 @@ class _TradesSliderState extends State<TradesSlider> {
                               borderRadius: BorderRadius.circular(12.0),
                               boxShadow: [
                                 BoxShadow(
-                                  color: t.optiontype == "buy"
+                                  color: t.optionType == "buy"
                                       ? const Color.fromARGB(255, 14, 217, 92)
                                       : const Color.fromARGB(255, 255, 79, 52),
                                   offset: const Offset(5, 5),
@@ -102,7 +108,7 @@ class _TradesSliderState extends State<TradesSlider> {
                                   t.ticker.title.toUpperCase(),
                                   style: GoogleFonts.exo2(
                                     fontSize: 20.0,
-                                    color: t.optiontype == "buy"
+                                    color: t.optionType == "buy"
                                         ? Colors.black
                                         : Colors.white,
                                     fontWeight: FontWeight.w700,
@@ -110,10 +116,10 @@ class _TradesSliderState extends State<TradesSlider> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  "${t.optiontype.toUpperCase()}: ${t.strategy.toUpperCase()} @ \$${t.totalcost}",
+                                  "${t.optionType.toUpperCase()}: ${t.strategy.toUpperCase()} @ \$${t.totalCost}",
                                   style: GoogleFonts.exo2(
                                     letterSpacing: 0.2,
-                                    color: t.optiontype == "buy"
+                                    color: t.optionType == "buy"
                                         ? Colors.black
                                         : Colors.white,
                                     fontWeight: FontWeight.w700,
@@ -123,28 +129,28 @@ class _TradesSliderState extends State<TradesSlider> {
                                   "Strike prices:",
                                   style: GoogleFonts.exo2(
                                     letterSpacing: 0.2,
-                                    color: t.optiontype == "buy"
+                                    color: t.optionType == "buy"
                                         ? Colors.black
                                         : Colors.white,
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                for (var item in t.strikeprices)
+                                for (var item in t.prices)
                                   Text(
                                     "\$ $item",
                                     style: GoogleFonts.exo2(
                                       letterSpacing: 0.2,
-                                      color: t.optiontype == "buy"
+                                      color: t.optionType == "buy"
                                           ? Colors.black
                                           : Colors.white,
                                       fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 Text(
-                                  "Exp. Date: ${DateFormat.yMd().format(t.expoDate.toDate())}",
+                                  "Exp. Date: ${DateFormat.yMd().format(t.expiresAt.toDate())}",
                                   style: GoogleFonts.exo2(
                                     letterSpacing: 0.2,
-                                    color: t.optiontype == "buy"
+                                    color: t.optionType == "buy"
                                         ? Colors.black
                                         : Colors.white,
                                     fontWeight: FontWeight.w700,

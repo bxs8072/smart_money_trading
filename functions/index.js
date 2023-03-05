@@ -93,7 +93,7 @@ exports.onAlertCreate = functions.firestore.document("optionAlerts/{uid}/optionA
     const payload = {
         notification: {
             title: "Option Alert",
-            body: `Stock Ticker: ${data.ticker.title}, Strategy: ${data.strategy}, ${strikePriceMessage}, ${data.description}`,
+            body: `Stock Ticker: ${data.ticker.title}, Total Cost: ${data.totalCost}, Strategy: ${data.strategy}, ${strikePriceMessage}, ${data.description}`,
         },
         data: {
             data: JSON.stringify(data),

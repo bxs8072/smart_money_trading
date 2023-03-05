@@ -40,7 +40,7 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
   String selectedOptionStrategy = optyionTypeList[0];
   String optionType = "buy";
   Ticker selectedTicker = stockTickerList[0];
-  DateTime expirationDate = DateTime.now();
+  DateTime expiresAt = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -68,11 +68,11 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                       textAlign: TextAlign.center,
                     ),
                     Card(
-                      elevation: 6.0,
+                      elevation: 1.0,
                       child: DropdownButton<Ticker>(
                         borderRadius: BorderRadius.circular(12.0),
                         underline: const Center(),
-                        elevation: 6,
+                        elevation: 1,
                         hint: const Text("Select Ticker"),
                         isExpanded: true,
                         key: widget.key,
@@ -84,16 +84,7 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                                 value: e,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    children: [
-                                      CircleAvatar(
-                                        maxRadius: 10,
-                                        backgroundImage: AssetImage(e.image),
-                                      ),
-                                      const SizedBox(width: 20),
-                                      Text(e.title.toUpperCase()),
-                                    ],
-                                  ),
+                                  child: Text(e.title.toUpperCase()),
                                 ),
                               ),
                             )
@@ -112,11 +103,11 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                       textAlign: TextAlign.center,
                     ),
                     Card(
-                      elevation: 6.0,
+                      elevation: 1.0,
                       child: DropdownButton<String>(
                         borderRadius: BorderRadius.circular(12.0),
                         underline: const Center(),
-                        elevation: 6,
+                        elevation: 1,
                         hint: const Text("Select Option Strategy"),
                         isExpanded: true,
                         key: widget.key,
@@ -133,15 +124,6 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                             )
                             .toList(),
                         onChanged: (val) {
-                          List<String> optyionTypeLists = [
-                            "butterfly",
-                            "call spread",
-                            "condor",
-                            "iron butterfly",
-                            "iron condor",
-                            "put spread",
-                          ];
-
                           setState(() {
                             selectedOptionStrategy = val!;
                             if (val == "call spread" || val == "put spread") {
@@ -180,11 +162,11 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                       textAlign: TextAlign.center,
                     ),
                     Card(
-                      elevation: 6.0,
+                      elevation: 1.0,
                       child: DropdownButton<String>(
                         borderRadius: BorderRadius.circular(12.0),
                         underline: const Center(),
-                        elevation: 6,
+                        elevation: 1,
                         hint: const Text("Select Option Type"),
                         isExpanded: true,
                         key: widget.key,
@@ -250,42 +232,39 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                       minLines: 4,
                     ),
                     const SizedBox(height: 20),
-                    GestureDetector(
+                    TextFormField(
+                      readOnly: true,
+                      enabled: true,
                       onTap: () {
                         showDatePicker(
                           context: context,
-                          initialDate: expirationDate,
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime(2004),
-                          currentDate: expirationDate,
-                          initialDatePickerMode: DatePickerMode.year,
-                        ).then((value) {
-                          setState(() {
-                            expirationDate = value!;
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(DateTime.now().year + 5),
+                          currentDate: expiresAt,
+                          initialDatePickerMode: DatePickerMode.day,
+                        ).then((date) {
+                          showTimePicker(
+                                  context: context,
+                                  initialTime: TimeOfDay.now())
+                              .then((value) {
+                            setState(() {
+                              expiresAt = DateTime(date!.year, date.month,
+                                  date.day, value!.hour, value.minute);
+                            });
                           });
                         });
                       },
-                      child: SizedBox(
-                        key: widget.key,
-                        height: SizeService(context).height * 0.07,
-                        child: TextFormField(
-                          enabled: true,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
-                            disabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: ThemeService.secondary),
-                            ),
-                            prefixIcon: Icon(
-                              Icons.calendar_month,
-                              color: ThemeService.secondary,
-                            ),
-                            labelText: "Expiration Date",
-                            labelStyle: TextStyle(
-                              color: ThemeService.secondary,
-                            ),
-                          ),
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        disabledBorder: const OutlineInputBorder(
+                          borderSide: BorderSide(color: ThemeService.secondary),
                         ),
+                        prefixIcon: const Icon(
+                          Icons.calendar_month,
+                          color: ThemeService.secondary,
+                        ),
+                        hintText: Intl().date().format(expiresAt),
                       ),
                     ),
                     ElevatedButton(
@@ -300,15 +279,16 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                               strategy: selectedOptionStrategy,
                               description:
                                   strategyDescriptionController.text.trim(),
-                              strikeprices: strikePriceControllers
+                              prices: strikePriceControllers
                                   .map((e) => double.parse(
                                         e.text.trim(),
                                       ))
                                   .toList(),
                               createdAt: Timestamp.now(),
-                              expoDate: Timestamp.fromDate(expirationDate),
-                              totalcost: totalCostController.text.trim(),
-                              optiontype: optionType,
+                              expiresAt: Timestamp.fromDate(expiresAt),
+                              totalCost:
+                                  double.parse(totalCostController.text.trim()),
+                              optionType: optionType,
                             ).toJson)
                             .then((value) => Navigator.pop(context));
                       },
