@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/ticker.dart';
 import 'package:smart_money_trading/models/ticker_notification.dart';
+import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/stocks_global.dart';
+import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 
 class CreateAlertUI extends StatefulWidget {
   const CreateAlertUI({super.key});
@@ -13,18 +16,31 @@ class CreateAlertUI extends StatefulWidget {
 }
 
 class _CreateAlertUIState extends State<CreateAlertUI> {
-  Ticker selectedTicker = stockTickerList[0];
+  TextEditingController totalCostController = TextEditingController();
+  TextEditingController strategyDescriptionController = TextEditingController();
 
-  String selectedOptionStrategy = optyionTypeList[0];
-
-  String optionType = "buy";
   List<TextEditingController> strikePriceControllers = [
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
     TextEditingController(),
   ];
-  TextEditingController strategyDescriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    totalCostController.dispose();
+    strategyDescriptionController.dispose();
+    for (TextEditingController controller in strikePriceControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  int totalCost = 0;
+  String selectedOptionStrategy = optyionTypeList[0];
+  String optionType = "buy";
+  Ticker selectedTicker = stockTickerList[0];
+  DateTime expirationDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +139,6 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                             "condor",
                             "iron butterfly",
                             "iron condor",
-                            "outright call",
-                            "outright put",
                             "put spread",
                           ];
 
@@ -193,7 +207,20 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                         },
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      key: widget.key,
+                      height: SizeService(context).height * 0.07,
+                      child: TextFormField(
+                        controller: totalCostController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          labelText: "Total Cost",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
                     Column(
                       children: strikePriceControllers
                           .map(
@@ -211,7 +238,7 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                           )
                           .toList(),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: strategyDescriptionController,
                       keyboardType: TextInputType.text,
@@ -223,6 +250,44 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                       minLines: 4,
                     ),
                     const SizedBox(height: 20),
+                    GestureDetector(
+                      onTap: () {
+                        showDatePicker(
+                          context: context,
+                          initialDate: expirationDate,
+                          firstDate: DateTime(1900),
+                          lastDate: DateTime(2004),
+                          currentDate: expirationDate,
+                          initialDatePickerMode: DatePickerMode.year,
+                        ).then((value) {
+                          setState(() {
+                            expirationDate = value!;
+                          });
+                        });
+                      },
+                      child: SizedBox(
+                        key: widget.key,
+                        height: SizeService(context).height * 0.07,
+                        child: TextFormField(
+                          enabled: true,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(),
+                            disabledBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: ThemeService.secondary),
+                            ),
+                            prefixIcon: Icon(
+                              Icons.calendar_month,
+                              color: ThemeService.secondary,
+                            ),
+                            labelText: "Expiration Date",
+                            labelStyle: TextStyle(
+                              color: ThemeService.secondary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     ElevatedButton(
                       onPressed: () async {
                         FirebaseFirestore.instance
@@ -235,12 +300,15 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                               strategy: selectedOptionStrategy,
                               description:
                                   strategyDescriptionController.text.trim(),
-                              prices: strikePriceControllers
+                              strikeprices: strikePriceControllers
                                   .map((e) => double.parse(
                                         e.text.trim(),
                                       ))
                                   .toList(),
                               createdAt: Timestamp.now(),
+                              expoDate: Timestamp.fromDate(expirationDate),
+                              totalcost: totalCostController.text.trim(),
+                              optiontype: optionType,
                             ).toJson)
                             .then((value) => Navigator.pop(context));
                       },

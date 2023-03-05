@@ -16,7 +16,7 @@ class BenzingaApi {
     List<Map<String, dynamic>> results =
         List<Map<String, dynamic>>.from(json.decode(response.body));
 
-    print(results);
+    // print(results);
     return results;
   }
 
@@ -30,7 +30,7 @@ class BenzingaApi {
     List<Map<String, dynamic>> results =
         List<Map<String, dynamic>>.from(json.decode(response.body));
 
-    print(results);
+    // print(results);
     return results;
   }
 }
