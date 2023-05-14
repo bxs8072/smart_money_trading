@@ -81,8 +81,8 @@ class AdminPanelUI extends StatelessWidget {
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.5),
-                              spreadRadius: 0.0,
-                              blurRadius: 0.05,
+                              spreadRadius: 0.1,
+                              blurRadius: 0.0,
                               offset: const Offset(0, 0),
                             ),
                           ],
@@ -108,7 +108,18 @@ class AdminPanelUI extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          trailing: const Icon(Icons.remove_circle),
+                          trailing: IconButton(
+                            onPressed: () async {
+                              await FirebaseFirestore.instance
+                                  .collection("optionAlerts")
+                                  .doc(tradeAlert.docId)
+                                  .delete();
+                            },
+                            icon: const Icon(
+                              Icons.remove_circle,
+                              color: ThemeService.error,
+                            ),
+                          ),
                         ),
                       );
                     },

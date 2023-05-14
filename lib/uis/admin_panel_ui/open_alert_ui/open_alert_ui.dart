@@ -55,8 +55,8 @@ class _OpenAlertUIState extends State<OpenAlertUI> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.5),
-                          spreadRadius: 0.0,
-                          blurRadius: 0.05,
+                          spreadRadius: 0.1,
+                          blurRadius: 0.0,
                           offset: const Offset(0, 0),
                         ),
                       ],
@@ -108,8 +108,8 @@ class _OpenAlertUIState extends State<OpenAlertUI> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.5),
-                          spreadRadius: 0.0,
-                          blurRadius: 0.05,
+                          spreadRadius: 0.1,
+                          blurRadius: 0.0,
                           offset: const Offset(0, 0),
                         ),
                       ],
@@ -160,8 +160,8 @@ class _OpenAlertUIState extends State<OpenAlertUI> {
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.5),
-                          spreadRadius: 0.0,
-                          blurRadius: 0.05,
+                          spreadRadius: 0.1,
+                          blurRadius: 0.0,
                           offset: const Offset(0, 0),
                         ),
                       ],
