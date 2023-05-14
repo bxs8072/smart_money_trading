@@ -35,9 +35,9 @@ class CustomTilesBuilder extends StatelessWidget {
                 children: [
                   CustomTile(
                     onTap: () {},
-                    top: "Market Insights",
+                    top: "",
                     title: "Market Insights",
-                    height: 0.17,
+                    height: 0.20,
                     weight: 0.20,
                     color: ThemeService.dark,
                     image: Image.asset(
@@ -46,9 +46,9 @@ class CustomTilesBuilder extends StatelessWidget {
                   ),
                   CustomTile(
                     onTap: () {},
-                    top: "Trading Tips",
+                    top: "",
                     title: "Trading Strategies \n& Risk Management",
-                    height: 0.17,
+                    height: 0.20,
                     weight: 0.20,
                     color: ThemeService.dark,
                     image: Image.asset(

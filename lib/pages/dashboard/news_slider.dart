@@ -18,17 +18,17 @@ class _NewsSliderState extends State<NewsSlider> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            "Top News",
-            textAlign: TextAlign.start,
-            style: GoogleFonts.lato(
-              fontSize: 16.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.all(0.90),
+        //   child: Text(
+        //     "Top News",
+        //     textAlign: TextAlign.start,
+        //     style: GoogleFonts.lato(
+        //       fontSize: 16.0,
+        //       fontWeight: FontWeight.bold,
+        //     ),
+        //   ),
+        // ),
         ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
           child: CarouselSlider(
@@ -94,8 +94,9 @@ class _NewsSliderState extends State<NewsSlider> {
                   current = index;
                 });
               },
-              aspectRatio: 9 / 14,
-              viewportFraction: 2.0,
+              // height: 400.0,
+              aspectRatio: 9 / 18,
+              viewportFraction: 3.0,
               enableInfiniteScroll: true,
               reverse: false,
               autoPlay: true,

@@ -71,21 +71,21 @@ class _TradesSliderState extends State<TradesSlider> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: t.optionType == "buy"
-                                    ? const AssetImage(
-                                        './assets/logos/biga-bull.jpg',
-                                      )
-                                    : const AssetImage(
-                                        './assets/logos/bear-market.jpeg',
-                                      ),
-                                opacity: 0.09,
-                                // colorFilter: const ColorFilter.mode(
-                                //   Colors.black87,
-                                //   BlendMode.colorDodge,
-                                // ),
-                                fit: BoxFit.cover,
-                              ),
+                              // image: DecorationImage(
+                              //   image: t.optionType == "buy"
+                              //       ? const AssetImage(
+                              //           './assets/logos/biga-bull.jpg',
+                              //         )
+                              //       : const AssetImage(
+                              //           './assets/logos/bear-market.jpeg',
+                              //         ),
+                              //   opacity: 0.09,
+                              //   // colorFilter: const ColorFilter.mode(
+                              //   //   Colors.black87,
+                              //   //   BlendMode.colorDodge,
+                              //   // ),
+                              //   fit: BoxFit.cover,
+                              // ),
                               // color: t.optiontype == "buy"
                               //     ? Colors.green
                               //     : Colors.red,
