@@ -47,38 +47,37 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               key: widget.key,
               children: [
-                Text(
-                  "Welcome to\nSmart Money Trading,",
-                  // textAlign: TextAlign.start,
-                  style: GoogleFonts.baskervville(
-                    fontSize: SizeService(context).height * 0.035,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+                Image.asset(
+                  "assets/oxt_logo.png",
+                  height: 150,
+                  alignment: Alignment.topCenter,
                 ),
-                SizedBox(height: SizeService(context).verticalPadding * .5),
+
+                SizedBox(
+                  height: SizeService(context).verticalPadding * 1.0,
+                ),
                 Text(
-                  "Navigating Markets with Precision and Insight",
-                  // textAlign: TextAlign.start,
+                  "Enhancing Trading Decisions",
+                  textAlign: TextAlign.center,
                   style: GoogleFonts.baskervville(
                     fontSize: SizeService(context).height * 0.025,
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
                   ),
                 ),
-                SizedBox(height: SizeService(context).verticalPadding * 2.0),
+                SizedBox(height: SizeService(context).verticalPadding * 1.0),
                 Text(
-                  "Sign in to continue.",
+                  "Sign in",
                   style: GoogleFonts.baskervville(
-                    fontSize: SizeService(context).height * 0.030,
+                    fontSize: SizeService(context).height * 0.035,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
                   ),
                 ),
-                SizedBox(height: SizeService(context).verticalPadding * 1.0),
+                // SizedBox(height: SizeService(context).verticalPadding * 1.0),
                 Form(
                   child: Padding(
                     padding: EdgeInsets.symmetric(

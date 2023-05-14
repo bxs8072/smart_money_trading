@@ -78,7 +78,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - assets/logos/
+  - assets/oxt_logo.png
   - assets/market-insight/
   - assets/trading-tips/
   
