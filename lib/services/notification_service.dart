@@ -16,7 +16,7 @@ class NotificationService {
   FlutterLocalNotificationsPlugin get notificationPlugin =>
       _flutterLocalNotificationsPlugin;
 
-  Future<void> initialize(BuildContext context) async {
+  Future<void> initialize() async {
     AndroidInitializationSettings androidInitializationSettings =
         const AndroidInitializationSettings("@mipmap/ic_launcher");
     DarwinInitializationSettings iosInitializationSettings =
@@ -33,7 +33,6 @@ class NotificationService {
       if (response.payload != null) {
         Map<String, dynamic> data = json.decode(response.payload!);
         print("Data: $data");
-        NavigationService(context).push(const CreateAlertUI());
       }
     });
   }

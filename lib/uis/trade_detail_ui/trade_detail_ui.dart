@@ -5,15 +5,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/comment.dart';
 import 'package:smart_money_trading/models/customer.dart';
-import 'package:smart_money_trading/models/ticker_notification.dart';
+import 'package:smart_money_trading/models/close_alert.dart';
+import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/uis/trade_detail_ui/trade_reply_ui/trade_reply_ui.dart';
 
 class TradeDetailUI extends StatefulWidget {
-  final TickerNotification tickerNotification;
-  const TradeDetailUI({super.key, required this.tickerNotification});
+  final TradeAlert tradeAlert;
+  const TradeDetailUI({super.key, required this.tradeAlert});
 
   @override
   State<TradeDetailUI> createState() => _TradeDetailUIState();
@@ -43,7 +44,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                           onPressed: () {
                             FirebaseFirestore.instance
                                 .collection("tradeComments")
-                                .doc(widget.tickerNotification.docId)
+                                .doc(widget.tradeAlert.docId)
                                 .collection("tradeComments")
                                 .doc()
                                 .set(Comment(
@@ -90,7 +91,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
         slivers: [
           SliverAppBar(
             key: widget.key,
-            title: Text(widget.tickerNotification.ticker.title),
+            title: Text(widget.tradeAlert.ticker.title),
             pinned: true,
           ),
           SliverToBoxAdapter(
@@ -106,23 +107,22 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                   child: Column(
                     children: [
                       Text(
-                        widget.tickerNotification.ticker.title,
+                        widget.tradeAlert.ticker.title,
                         style: GoogleFonts.lato(
                           color: ThemeService.success,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(widget.tickerNotification.description),
-                      Text(
-                          "Total Cost: \$ ${widget.tickerNotification.totalCost}"),
+                      Text(widget.tradeAlert.openedDescription),
+                      Text("Total Cost: \$ ${widget.tradeAlert.totalCost}"),
                       Column(
-                        children: widget.tickerNotification.prices
+                        children: widget.tradeAlert.prices
                             .map((item) => Text(
-                                "Strike Price ${widget.tickerNotification.prices.indexOf(item) + 1}: \$ $item"))
+                                "Strike Price ${widget.tradeAlert.prices.indexOf(item) + 1}: \$ $item"))
                             .toList(),
                       ),
                       Text(
-                        "Expires At: ${Intl().date().format(widget.tickerNotification.expiresAt.toDate())}",
+                        "Expires At: ${Intl().date().format(widget.tradeAlert.closedAt.toDate())}",
                         style: GoogleFonts.lato(
                           color: ThemeService.error,
                           fontWeight: FontWeight.w600,
@@ -148,7 +148,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
           StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection("tradeComments")
-                  .doc(widget.tickerNotification.docId)
+                  .doc(widget.tradeAlert.docId)
                   .collection("tradeComments")
                   .orderBy("createdAt", descending: true)
                   .snapshots(),
@@ -253,8 +253,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                                           }
                                           FirebaseFirestore.instance
                                               .collection("tradeComments")
-                                              .doc(widget
-                                                  .tickerNotification.docId)
+                                              .doc(widget.tradeAlert.docId)
                                               .collection("tradeComments")
                                               .doc(comment.docId)
                                               .update({

@@ -53,6 +53,7 @@ dependencies:
   firebase_in_app_messaging: ^0.7.0+10
   flutter_local_notifications: ^13.0.0
   carousel_slider: ^4.2.1
+  flutter_timezone: ^1.0.6
 
 dev_dependencies:
   flutter_test:

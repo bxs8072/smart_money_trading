@@ -236,7 +236,7 @@ class _SubscriptionUIState extends State<SubscriptionUI> {
                 future: subscriptionApi.getSubscriptions(
                     customerId: widget.customer.stripeCustomerId!),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
                     return SliverToBoxAdapter(
                       child: Center(
                         child: CircularProgressIndicator(
@@ -246,64 +246,86 @@ class _SubscriptionUIState extends State<SubscriptionUI> {
                     );
                   } else {
                     List<Subscription> list = snapshot.data!;
-                    return SliverPadding(
-                      padding: const EdgeInsets.all(12.0),
-                      sliver: SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                        (context, i) {
-                          Subscription subscription = list[i];
-                          return Card(
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                child: Text(
-                                  subscription.interval == "month" ? "M" : "Y",
+
+                    return list.isEmpty
+                        ? SliverToBoxAdapter(
+                            key: widget.key,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 20.0),
+                              child: Text(
+                                "Caught Up!",
+                                key: widget.key,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
-                              title: Text(subscription.subscriptionName),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "\$${(subscription.amount / 100).toStringAsFixed(2)}",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w700,
+                            ),
+                          )
+                        : SliverPadding(
+                            padding: const EdgeInsets.all(12.0),
+                            sliver: SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                              (context, i) {
+                                Subscription subscription = list[i];
+                                return Card(
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      child: Text(
+                                        subscription.interval == "month"
+                                            ? "M"
+                                            : "Y",
+                                      ),
+                                    ),
+                                    title: Text(subscription.subscriptionName),
+                                    subtitle: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "\$${(subscription.amount / 100).toStringAsFixed(2)}",
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              Intl().date("MM.dd.yyyy").format(
+                                                  subscription.startAt
+                                                      .toDate()),
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: ThemeService.primary,
+                                              ),
+                                            ),
+                                            const Text(
+                                              " - ",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w900,
+                                              ),
+                                            ),
+                                            Text(
+                                              Intl().date("MM.dd.yyyy").format(
+                                                  subscription.endAt.toDate()),
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: ThemeService.error,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        Intl().date("MM.dd.yyyy").format(
-                                            subscription.startAt.toDate()),
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: ThemeService.primary,
-                                        ),
-                                      ),
-                                      const Text(
-                                        " - ",
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                        ),
-                                      ),
-                                      Text(
-                                        Intl().date("MM.dd.yyyy").format(
-                                            subscription.endAt.toDate()),
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: ThemeService.error,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
+                                );
+                              },
+                              childCount: list.length,
+                            )),
                           );
-                        },
-                        childCount: list.length,
-                      )),
-                    );
                   }
                 }),
           ],

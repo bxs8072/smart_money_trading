@@ -5,14 +5,14 @@ import 'package:theme_provider/theme_provider.dart';
 class LightTheme {
   static AppTheme appTheme = AppTheme(
     id: ThemeService.lightId,
-    data: ThemeData.light(useMaterial3: true).copyWith(
-      useMaterial3: true,
+    data: ThemeData.light(useMaterial3: false).copyWith(
       primaryColor: ThemeService.primary,
       errorColor: ThemeService.error,
       indicatorColor: ThemeService.primary,
       focusColor: ThemeService.primary,
       dividerColor: ThemeService.light,
       appBarTheme: const AppBarTheme(
+        backgroundColor: ThemeService.primary,
         iconTheme: IconThemeData(
           color: ThemeService.secondary,
         ),

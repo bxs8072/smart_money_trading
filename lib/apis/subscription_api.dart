@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:smart_money_trading/models/subscription.dart';
 
 class SubscriptionApi {
-  static const String baseURL = "http://10.0.2.2:4242/api/v1";
+  static String baseURL = Platform.isAndroid
+      ? "http://10.0.2.2:4242/api/v1"
+      : "http://localhost:4242/api/v1";
   Client http = Client();
 
   Future<List<Subscription>> getSubscriptions(

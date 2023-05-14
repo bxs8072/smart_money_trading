@@ -10,6 +10,8 @@ import 'package:smart_money_trading/pages/account-page/account_page.dart';
 import 'package:smart_money_trading/pages/dashboard/dashboard.dart';
 import 'package:smart_money_trading/pages/news-page/news_page.dart';
 import 'package:smart_money_trading/services/notification_service.dart';
+import 'package:smart_money_trading/services/theme_services/theme_service.dart';
+import 'package:theme_provider/theme_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final Customer customer;
@@ -20,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
+  static int currentIndex = 0;
 
   List<Widget> get pages => [
         Dashboard(key: widget.key, customer: widget.customer),
@@ -30,33 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
-  Future<void> requestPermission() async {
-    NotificationSettings notificationSettings =
-        await FirebaseMessaging.instance.requestPermission(
-      alert: true,
-      announcement: true,
-      badge: true,
-      carPlay: true,
-      criticalAlert: true,
-      provisional: true,
-      sound: true,
-    );
-
-    switch (notificationSettings.authorizationStatus) {
-      case AuthorizationStatus.authorized:
-        print("User Granted Permission");
-        break;
-      case AuthorizationStatus.provisional:
-        print("User Granted Provisional Permission");
-        break;
-      case AuthorizationStatus.notDetermined:
-        print("Not Determined Permission");
-        break;
-      default:
-        print("User Declined Permission");
-        break;
-    }
-  }
 
   Future<void> createOptionAlertToken() async {
     await FirebaseFirestore.instance
@@ -83,53 +58,32 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     createOptionAlertToken();
-    requestPermission();
-
-    notificationService.initialize(context);
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      Map<String, dynamic> data = json.decode(message.data["data"]);
-      notificationService.showNotification(
-        notification: MyNotification(
-          id: 0,
-          title: message.notification!.title!,
-          body: message.notification!.body!,
-          data: data,
-        ),
-      );
-    });
-
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      Map<String, dynamic> data = json.decode(message.data["data"]);
-      notificationService.showNotification(
-        notification: MyNotification(
-          id: 1,
-          title: message.notification!.title!,
-          body: message.notification!.body!,
-          data: data,
-        ),
-      );
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: pages[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard), label: "Dashboard"),
-          BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: "News"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_box), label: "Account"),
-        ],
-        currentIndex: currentIndex,
-        onTap: (index) {
-          setState(() {
-            currentIndex = index;
-          });
-        },
+    return ThemeConsumer(
+      child: Scaffold(
+        body: pages[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.dashboard), label: "Dashboard"),
+            BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: "News"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_box), label: "Account"),
+          ],
+          currentIndex: currentIndex,
+          selectedItemColor: ThemeService(context).isDark
+              ? ThemeService.light
+              : ThemeService.primary,
+          unselectedItemColor: ThemeService.secondary,
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+        ),
       ),
     );
   }

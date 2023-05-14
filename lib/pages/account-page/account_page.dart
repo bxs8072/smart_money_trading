@@ -48,7 +48,6 @@ class _AccountPageState extends State<AccountPage> {
                 key: widget.key,
                 leading: Icon(
                   Icons.admin_panel_settings,
-                  color: ThemeService.primary,
                   key: widget.key,
                 ),
                 title: Text(
@@ -69,7 +68,6 @@ class _AccountPageState extends State<AccountPage> {
                 key: widget.key,
                 leading: Icon(
                   Icons.subscriptions,
-                  color: ThemeService.primary,
                   key: widget.key,
                 ),
                 title: Text(
@@ -90,7 +88,6 @@ class _AccountPageState extends State<AccountPage> {
                 key: widget.key,
                 leading: Icon(
                   Icons.inventory_sharp,
-                  color: ThemeService.primary,
                   key: widget.key,
                 ),
                 title: Text(
@@ -102,27 +99,38 @@ class _AccountPageState extends State<AccountPage> {
                   key: widget.key,
                 ),
               ),
-              ListTile(
-                onTap: () {
-                  NavigationService(context).push(
-                    SubscriptionUI(customer: widget.customer),
-                  );
-                },
-                key: widget.key,
-                leading: Icon(
-                  Icons.payment,
-                  color: ThemeService.primary,
-                  key: widget.key,
-                ),
-                title: Text(
-                  "Charges",
-                  key: widget.key,
-                ),
-                subtitle: Text(
-                  "Check Your Charges",
-                  key: widget.key,
-                ),
-              ),
+
+              // ListTile(
+              //   leading: Icon(Icons.color_lens),
+              //   title: Text("Light Mode Theme"),
+              //   subtitle: Text("Switch Theme"),
+              //   trailing: Switch(
+              //       activeTrackColor: ThemeService.primary,
+              //       inactiveTrackColor: ThemeService.primary,
+              //       value: !ThemeService(context).isDark,
+              //       onChanged: (val) => ThemeService(context).switchTheme),
+              // ),
+              // ListTile(
+              //   onTap: () {
+              //     NavigationService(context).push(
+              //       SubscriptionUI(customer: widget.customer),
+              //     );
+              //   },
+              //   key: widget.key,
+              //   leading: Icon(
+              //     Icons.payment,
+              //     color: ThemeService.primary,
+              //     key: widget.key,
+              //   ),
+              //   title: Text(
+              //     "Charges",
+              //     key: widget.key,
+              //   ),
+              //   subtitle: Text(
+              //     "Check Your Charges",
+              //     key: widget.key,
+              //   ),
+              // ),
             ],
           ),
         ),

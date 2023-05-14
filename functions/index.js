@@ -21,7 +21,7 @@ exports.createUserInStripe = functions
             },
         });
 
-        
+
 
         const createdAt = admin.firestore.Timestamp.fromMillis(customer.created * 1000);
         await admin.
@@ -30,7 +30,7 @@ exports.createUserInStripe = functions
             .doc(user.uid).set({
                 setup: false,
                 stripeCustomerId: customer.id,
-                createdAt: createdAt, 
+                createdAt: createdAt,
                 email: customer.email,
                 invoicePrefix: customer.invoice_prefix,
                 firebaseUid: customer.metadata.firebaseUid,
@@ -61,50 +61,38 @@ exports.onUpdateCustomer = functions
         );
     });
 
-exports.onAlertCreate = functions.firestore.document("optionAlerts/{uid}/optionAlerts/{alertId}")
-.onCreate(async (snapshot, context) => {
-    
-    const uid = context.params.uid; 
-    const data = snapshot.data(); 
-    
-    console.log(data);
+exports.onAlertWrite = functions.firestore.document("optionAlerts/{alertId}")
+    .onWrite(async (snapshot, context) => { 
 
-    functions.logger.log(`Sending Notification About New Alert`);
+        const data = snapshot.after.data();
+        console.log(data);
+        functions.logger.log(`Sending Notification About New Alert`);
 
-    const customer = await admin.firestore().collection("customers").doc(uid).get();
-    const token = customer.data().optionAlertToken;
+        const querySnapshot = await admin.firestore().collection("subscriptions").get();
 
-    const prices = data.prices;
+        const docs = querySnapshot.docs.filter((doc) => doc.data().status === "active");
 
-    strikePriceMessage = "";
+        for (const doc of docs) {
+            const token = doc.data().optionAlertToken; 
+            const isClosed = data.isClosed;  
+            const title = isClosed ? `Closed Trade Alert | ${data.ticker.title}` : `Opened Trade Alert | ${data.ticker.title}`;
 
-    if(prices.length == 1) {
-        strikePriceMessage = "Strike Price: $" + prices[0];
-    }
+            const payload = {
+                notification: {
+                    title: title,
+                    body: isClosed ? data.closedDescription : data.openedDescription,
+                },
+                data: {
+                    data: JSON.stringify(data),
+                },
+            };
 
-    if(prices.length == 2) { 
-        strikePriceMessage = "Strike Price 1: $" + prices[0] + ", Strike Price 2: $" + prices[1];
-    }
-
-    if(prices.length == 4) { 
-        strikePriceMessage = "Strike Price 1: $" + prices[0] + ", Strike Price 2: $" + prices[1] + ", Strike Price 3: $" + prices[2] + ", Strike Price 4: $" + prices[3];
-    }
-
-    const payload = {
-        notification: {
-            title: "Option Alert",
-            body: `Stock Ticker: ${data.ticker.title}, Total Cost: ${data.totalCost}, Strategy: ${data.strategy}, ${strikePriceMessage}, ${data.description}`,
-        },
-        data: {
-            data: JSON.stringify(data),
-        }, 
-    };
-
-    const options = { priority: "high" };
-    await admin.messaging().sendToDevice(token, payload, options).then((response) => {
-        functions.logger.log(response);
-    }).catch((error) => {
-        functions.logger.error(error);
+            const options = { priority: "high" };
+            await admin.messaging().sendToDevice(token, payload, options).then((response) => {
+                functions.logger.log(response);
+            }).catch((error) => {
+                functions.logger.error(error);
+            }); 
+        }
     });
-});
 

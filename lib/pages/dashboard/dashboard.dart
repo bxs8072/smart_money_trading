@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:smart_money_trading/apis/benzinga_api.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_money_trading/models/ticker_notification.dart';
+import 'package:smart_money_trading/models/close_alert.dart';
+import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/pages/dashboard/trades_slider.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_tiles_builder.dart';
@@ -49,8 +50,7 @@ class _DashboardState extends State<Dashboard> {
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection("optionAlerts")
-                  .doc(FirebaseAuth.instance.currentUser!.uid)
-                  .collection("optionAlerts")
+                  .where("isClosed", isEqualTo: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -58,8 +58,8 @@ class _DashboardState extends State<Dashboard> {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  List<TickerNotification> list = snapshot.data!.docs
-                      .map((e) => TickerNotification.fromDoc(e))
+                  List<TradeAlert> list = snapshot.data!.docs
+                      .map((e) => TradeAlert.fromDoc(e))
                       .toList();
                   return TradesSlider(list: list);
                 }
