@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/ticker.dart';
-import 'package:smart_money_trading/models/ticker_notification.dart';
+import 'package:smart_money_trading/models/close_alert.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/stocks_global.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
@@ -17,6 +17,7 @@ class CreateAlertUI extends StatefulWidget {
 
 class _CreateAlertUIState extends State<CreateAlertUI> {
   TextEditingController totalCostController = TextEditingController();
+  TextEditingController pnlController = TextEditingController();
   TextEditingController strategyDescriptionController = TextEditingController();
 
   List<TextEditingController> strikePriceControllers = [
@@ -78,6 +79,7 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                         key: widget.key,
                         value: selectedTicker,
                         items: stockTickerList
+                            .toSet()
                             .map(
                               (e) => DropdownMenuItem<Ticker>(
                                 key: Key(e.title),
@@ -203,6 +205,19 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                       ),
                     ),
                     const SizedBox(height: 10),
+                    SizedBox(
+                      key: widget.key,
+                      height: SizeService(context).height * 0.07,
+                      child: TextFormField(
+                        controller: pnlController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          labelText: "P&L Amount",
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
                     Column(
                       children: strikePriceControllers
                           .map(
@@ -269,13 +284,12 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        FirebaseFirestore.instance
-                            .collection("optionAlerts")
-                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                        await FirebaseFirestore.instance
                             .collection("optionAlerts")
                             .doc()
-                            .set(TickerNotification(
+                            .set(CloseAlert(
                               ticker: selectedTicker,
+                              type: "closed",
                               strategy: selectedOptionStrategy,
                               description:
                                   strategyDescriptionController.text.trim(),
@@ -288,6 +302,7 @@ class _CreateAlertUIState extends State<CreateAlertUI> {
                               expiresAt: Timestamp.fromDate(expiresAt),
                               totalCost:
                                   double.parse(totalCostController.text.trim()),
+                              pnl: double.parse(pnlController.text.trim()),
                               optionType: optionType,
                             ).toJson)
                             .then((value) => Navigator.pop(context));

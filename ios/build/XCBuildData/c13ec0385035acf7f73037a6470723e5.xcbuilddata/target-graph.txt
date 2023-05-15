@@ -1,0 +1,127 @@
+Target dependency graph (34 targets)
+BoringSSL-GRPC in Pods, no dependencies
+PromisesObjC in Pods, no dependencies
+GoogleUtilities in Pods, depends on:
+PromisesObjC in Pods (explicit)
+FirebaseCoreInternal in Pods, depends on:
+GoogleUtilities in Pods (explicit)
+FirebaseCore in Pods, depends on:
+FirebaseCoreInternal in Pods (explicit)
+GoogleUtilities in Pods (explicit)
+GTMSessionFetcher in Pods, no dependencies
+FirebaseAuth in Pods, depends on:
+FirebaseCore in Pods (explicit)
+GTMSessionFetcher in Pods (explicit)
+GoogleUtilities in Pods (explicit)
+abseil in Pods, no dependencies
+gRPC-C++-gRPCCertificates-Cpp in Pods, no dependencies
+Libuv-gRPC in Pods, no dependencies
+gRPC-Core in Pods, depends on:
+BoringSSL-GRPC in Pods (explicit)
+Libuv-gRPC in Pods (explicit)
+abseil in Pods (explicit)
+gRPC-C++ in Pods, depends on:
+abseil in Pods (explicit)
+gRPC-C++-gRPCCertificates-Cpp in Pods (explicit)
+gRPC-Core in Pods (explicit)
+leveldb-library in Pods, no dependencies
+nanopb in Pods, no dependencies
+FirebaseFirestore in Pods, depends on:
+FirebaseCore in Pods (explicit)
+abseil in Pods (explicit)
+gRPC-C++ in Pods (explicit)
+leveldb-library in Pods (explicit)
+nanopb in Pods (explicit)
+FirebaseABTesting in Pods, depends on:
+FirebaseCore in Pods (explicit)
+FirebaseInAppMessaging-InAppMessagingDisplayResources in Pods, no dependencies
+FirebaseInstallations in Pods, depends on:
+FirebaseCore in Pods (explicit)
+GoogleUtilities in Pods (explicit)
+PromisesObjC in Pods (explicit)
+FirebaseInAppMessaging in Pods, depends on:
+FirebaseABTesting in Pods (explicit)
+FirebaseCore in Pods (explicit)
+FirebaseInAppMessaging-InAppMessagingDisplayResources in Pods (explicit)
+FirebaseInstallations in Pods (explicit)
+GoogleUtilities in Pods (explicit)
+nanopb in Pods (explicit)
+GoogleDataTransport in Pods, depends on:
+GoogleUtilities in Pods (explicit)
+PromisesObjC in Pods (explicit)
+nanopb in Pods (explicit)
+FirebaseMessaging in Pods, depends on:
+FirebaseCore in Pods (explicit)
+FirebaseInstallations in Pods (explicit)
+GoogleDataTransport in Pods (explicit)
+GoogleUtilities in Pods (explicit)
+nanopb in Pods (explicit)
+Firebase in Pods, depends on:
+FirebaseAuth in Pods (explicit)
+FirebaseCore in Pods (explicit)
+FirebaseFirestore in Pods (explicit)
+FirebaseInAppMessaging in Pods (explicit)
+FirebaseMessaging in Pods (explicit)
+Flutter in Pods, no dependencies
+firebase_core in Pods, depends on:
+Firebase in Pods (explicit)
+Flutter in Pods (explicit)
+cloud_firestore in Pods, depends on:
+Firebase in Pods (explicit)
+Flutter in Pods (explicit)
+firebase_core in Pods (explicit)
+nanopb in Pods (explicit)
+firebase_auth in Pods, depends on:
+Firebase in Pods (explicit)
+Flutter in Pods (explicit)
+firebase_core in Pods (explicit)
+firebase_in_app_messaging in Pods, depends on:
+Firebase in Pods (explicit)
+Flutter in Pods (explicit)
+firebase_core in Pods (explicit)
+firebase_messaging in Pods, depends on:
+Firebase in Pods (explicit)
+Flutter in Pods (explicit)
+firebase_core in Pods (explicit)
+flutter_local_notifications in Pods, depends on:
+Flutter in Pods (explicit)
+flutter_timezone in Pods, depends on:
+Flutter in Pods (explicit)
+path_provider_foundation in Pods, depends on:
+Flutter in Pods (explicit)
+shared_preferences_foundation in Pods, depends on:
+Flutter in Pods (explicit)
+url_launcher_ios in Pods, depends on:
+Flutter in Pods (explicit)
+Pods-Runner in Pods, depends on:
+BoringSSL-GRPC in Pods (explicit)
+Firebase in Pods (explicit)
+FirebaseABTesting in Pods (explicit)
+FirebaseAuth in Pods (explicit)
+FirebaseCore in Pods (explicit)
+FirebaseCoreInternal in Pods (explicit)
+FirebaseFirestore in Pods (explicit)
+FirebaseInAppMessaging in Pods (explicit)
+FirebaseInstallations in Pods (explicit)
+FirebaseMessaging in Pods (explicit)
+Flutter in Pods (explicit)
+GTMSessionFetcher in Pods (explicit)
+GoogleDataTransport in Pods (explicit)
+GoogleUtilities in Pods (explicit)
+Libuv-gRPC in Pods (explicit)
+PromisesObjC in Pods (explicit)
+abseil in Pods (explicit)
+cloud_firestore in Pods (explicit)
+firebase_auth in Pods (explicit)
+firebase_core in Pods (explicit)
+firebase_in_app_messaging in Pods (explicit)
+firebase_messaging in Pods (explicit)
+flutter_local_notifications in Pods (explicit)
+flutter_timezone in Pods (explicit)
+gRPC-C++ in Pods (explicit)
+gRPC-Core in Pods (explicit)
+leveldb-library in Pods (explicit)
+nanopb in Pods (explicit)
+path_provider_foundation in Pods (explicit)
+shared_preferences_foundation in Pods (explicit)
+url_launcher_ios in Pods (explicit)

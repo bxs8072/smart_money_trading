@@ -18,5 +18,7 @@ class ThemeService {
 
   ThemeService(this.context);
 
+  get isDark => ThemeProvider.controllerOf(context).currentThemeId == darkId;
+
   get switchTheme => ThemeProvider.controllerOf(context).nextTheme();
 }

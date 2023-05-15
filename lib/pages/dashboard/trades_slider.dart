@@ -2,13 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:smart_money_trading/models/ticker_notification.dart';
+import 'package:smart_money_trading/models/close_alert.dart';
+import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/uis/trade_detail_ui/trade_detail_ui.dart';
 
 class TradesSlider extends StatefulWidget {
-  final List<TickerNotification> list;
+  final List<TradeAlert> list;
   const TradesSlider({
     Key? key,
     required this.list,
@@ -57,13 +58,13 @@ class _TradesSliderState extends State<TradesSlider> {
           Column(
             children: [
               CarouselSlider(
-                items: widget.list.map((TickerNotification t) {
+                items: widget.list.map((TradeAlert t) {
                   return Builder(
                     builder: (BuildContext context) {
                       return GestureDetector(
                         onTap: () {
                           NavigationService(context).push(
-                            TradeDetailUI(tickerNotification: t),
+                            TradeDetailUI(tradeAlert: t),
                           );
                         },
                         child: Material(
@@ -147,7 +148,7 @@ class _TradesSliderState extends State<TradesSlider> {
                                     ),
                                   ),
                                 Text(
-                                  "Exp. Date: ${DateFormat.yMd().format(t.expiresAt.toDate())}",
+                                  "Exp. Date: ${DateFormat.yMd().format(t.closedAt.toDate())}",
                                   style: GoogleFonts.exo2(
                                     letterSpacing: 0.2,
                                     color: t.optionType == "buy"

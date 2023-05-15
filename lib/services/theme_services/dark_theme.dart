@@ -7,8 +7,8 @@ class DarkTheme {
 
   static AppTheme appTheme = AppTheme(
     id: ThemeService.darkId,
-    data: ThemeData.dark(useMaterial3: true).copyWith(
-      useMaterial3: true,
+    data: ThemeData.dark(useMaterial3: false).copyWith(
+      useMaterial3: false,
       primaryColor: ThemeService.primary,
       errorColor: ThemeService.error,
       indicatorColor: ThemeService.primary,
@@ -23,7 +23,11 @@ class DarkTheme {
         ),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: ThemeService.primary,
+        selectedItemColor: ThemeService.light,
+        selectedIconTheme: IconThemeData(
+          color: ThemeService.light,
+        ),
+        unselectedItemColor: ThemeService.secondary,
       ),
       tabBarTheme: const TabBarTheme(
         unselectedLabelColor: secondaryColor,

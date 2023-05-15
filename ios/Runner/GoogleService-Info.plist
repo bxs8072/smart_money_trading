@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>456307585043-g19p445eg9dvhohmqm4ru6gjft4h1gk4.apps.googleusercontent.com</string>
+	<string>456307585043-1l6ch8959061n0cso8v55736fe2c40r1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.456307585043-g19p445eg9dvhohmqm4ru6gjft4h1gk4</string>
+	<string>com.googleusercontent.apps.456307585043-1l6ch8959061n0cso8v55736fe2c40r1</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>456307585043-p9tppligjrc7pku3fomislrh2jsgf6l7.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,22 +15,22 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.smartMoneyTrading</string>
+	<string>com.oxt.oxt</string>
 	<key>PROJECT_ID</key>
 	<string>smartmoney-fef2d</string>
 	<key>STORAGE_BUCKET</key>
 	<string>smartmoney-fef2d.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:456307585043:ios:0afc66de9cdb339f37cfe6</string>
+	<string>1:456307585043:ios:e52ad56c47468b8b37cfe6</string>
 </dict>
 </plist>
