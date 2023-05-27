@@ -58,7 +58,7 @@ class _CreateInsightAlertUIState extends State<CreateInsightAlertUI> {
                       ),
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: TextFormField(
-                        controller: titleController,
+                        controller: descriptionController,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           labelText: "Description",
