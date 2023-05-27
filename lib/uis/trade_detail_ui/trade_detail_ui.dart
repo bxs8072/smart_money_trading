@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/comment.dart';
 import 'package:smart_money_trading/models/customer.dart';
-import 'package:smart_money_trading/models/close_alert.dart';
 import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/size_service.dart';
@@ -113,7 +112,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      Text(widget.tradeAlert.openedDescription),
+                      Text(widget.tradeAlert.description),
                       Text("Total Cost: \$ ${widget.tradeAlert.totalCost}"),
                       Column(
                         children: widget.tradeAlert.prices
@@ -122,7 +121,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                             .toList(),
                       ),
                       Text(
-                        "Expires At: ${Intl().date().format(widget.tradeAlert.closedAt.toDate())}",
+                        "Expires At: ${Intl().date().format(widget.tradeAlert.datetime.toDate())}",
                         style: GoogleFonts.lato(
                           color: ThemeService.error,
                           fontWeight: FontWeight.w600,

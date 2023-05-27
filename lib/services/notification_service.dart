@@ -1,9 +1,5 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:smart_money_trading/services/navigation_service.dart';
-import 'package:smart_money_trading/uis/admin_panel_ui/create_alert_ui/create_alert_ui.dart';
 
 class NotificationService {
   NotificationService._internal();
