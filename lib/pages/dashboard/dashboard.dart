@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:smart_money_trading/apis/benzinga_api.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_money_trading/models/close_alert.dart';
 import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/pages/dashboard/trades_slider.dart';
 import 'package:smart_money_trading/services/size_service.dart';

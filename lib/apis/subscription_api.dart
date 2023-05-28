@@ -8,6 +8,7 @@ class SubscriptionApi {
   static String baseURL = Platform.isAndroid
       ? "http://10.0.2.2:4242/api/v1"
       : "http://localhost:4242/api/v1";
+
   Client http = Client();
 
   Future<List<Subscription>> getSubscriptions(

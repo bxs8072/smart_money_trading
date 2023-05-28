@@ -2,7 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:smart_money_trading/models/close_alert.dart';
 import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/size_service.dart';
@@ -148,7 +147,7 @@ class _TradesSliderState extends State<TradesSlider> {
                                     ),
                                   ),
                                 Text(
-                                  "Exp. Date: ${DateFormat.yMd().format(t.closedAt.toDate())}",
+                                  "Exp. Date: ${DateFormat.yMd().format(t.datetime.toDate())}",
                                   style: GoogleFonts.exo2(
                                     letterSpacing: 0.2,
                                     color: t.optionType == "buy"

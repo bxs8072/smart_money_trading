@@ -61,38 +61,67 @@ exports.onUpdateCustomer = functions
         );
     });
 
-exports.onAlertWrite = functions.firestore.document("optionAlerts/{alertId}")
-    .onWrite(async (snapshot, context) => { 
+    exports.onAlertWrite = functions.firestore.document("tradeAlerts/{alertId}")
+    .onWrite(async (snapshot, context) => {  
+        const data = snapshot.after.data();  
 
-        const data = snapshot.after.data();
-        console.log(data);
-        functions.logger.log(`Sending Notification About New Alert`);
-
-        const querySnapshot = await admin.firestore().collection("subscriptions").get();
-
+        const querySnapshot = await admin.firestore().collection("subscriptions").get(); 
         const docs = querySnapshot.docs.filter((doc) => doc.data().status === "active");
 
         for (const doc of docs) {
-            const token = doc.data().optionAlertToken; 
-            const isClosed = data.isClosed;  
-            const title = isClosed ? `Closed Trade Alert | ${data.ticker.title}` : `Opened Trade Alert | ${data.ticker.title}`;
+            const token = doc.data().optionAlertToken;   
+
+            const title = 'Trade Alert | OXT';
+            const options = { priority: "high" }; 
 
             const payload = {
                 notification: {
                     title: title,
-                    body: isClosed ? data.closedDescription : data.openedDescription,
+                    body: data.description,
                 },
                 data: {
                     data: JSON.stringify(data),
                 },
             };
-
-            const options = { priority: "high" };
             await admin.messaging().sendToDevice(token, payload, options).then((response) => {
                 functions.logger.log(response);
             }).catch((error) => {
                 functions.logger.error(error);
-            }); 
+            });  
+        }
+    });
+
+
+    exports.onAlertWrite = functions.firestore.document("insights/{insightId}")
+    .onWrite(async (snapshot, context) => {  
+        const data = snapshot.after.data();  
+
+        const querySnapshot = await admin.firestore().collection("subscriptions").get(); 
+        const docs = querySnapshot.docs.filter((doc) => doc.data().status === "active");
+
+        for (const doc of docs) {
+            const token = doc.data().optionAlertToken;   
+            let title = 'Weekly Trading Insight | OXT';
+
+            const options = { priority: "high" };
+
+            if(data.type === "daily") {
+                title = 'Daily Trading Insight | OXT'; 
+            }   
+            const payload = {
+                notification: {
+                    title: title,
+                    body: data.description,
+                },
+                data: {
+                    data: JSON.stringify(data),
+                },
+            };
+            await admin.messaging().sendToDevice(token, payload, options).then((response) => {
+                functions.logger.log(response);
+            }).catch((error) => {
+                functions.logger.error(error);
+            });  
         }
     });
 
