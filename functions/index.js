@@ -61,7 +61,7 @@ exports.onUpdateCustomer = functions
         );
     });
 
-    exports.onAlertWrite = functions.firestore.document("tradeAlerts/{alertId}")
+    exports.onTradeAlertWrite = functions.firestore.document("tradeAlerts/{alertId}")
     .onWrite(async (snapshot, context) => {  
         const data = snapshot.after.data();  
 
@@ -69,8 +69,7 @@ exports.onUpdateCustomer = functions
         const docs = querySnapshot.docs.filter((doc) => doc.data().status === "active");
 
         for (const doc of docs) {
-            const token = doc.data().optionAlertToken;   
-
+            const token = doc.data().optionAlertToken;    
             const title = 'Trade Alert | OXT';
             const options = { priority: "high" }; 
 
@@ -92,7 +91,7 @@ exports.onUpdateCustomer = functions
     });
 
 
-    exports.onAlertWrite = functions.firestore.document("insights/{insightId}")
+    exports.onInsightAlertWrite = functions.firestore.document("insights/{insightId}")
     .onWrite(async (snapshot, context) => {  
         const data = snapshot.after.data();  
 
