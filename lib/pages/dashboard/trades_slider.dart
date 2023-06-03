@@ -2,10 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:smart_money_trading/custom_widgets/custom_card.dart';
 import 'package:smart_money_trading/models/insight_alert.dart';
 import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/size_service.dart';
+import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/uis/trade_detail_ui/trade_detail_ui.dart';
 
 class TradesSlider extends StatefulWidget {
@@ -63,51 +65,35 @@ class _TradesSliderState extends State<TradesSlider> {
                     builder: (BuildContext context) {
                       return GestureDetector(
                         onTap: () {},
-                        child: Material(
-                          elevation: 100,
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              // image: DecorationImage(
-                              //   image: t.optionType == "buy"
-                              //       ? const AssetImage(
-                              //           './assets/logos/biga-bull.jpg',
-                              //         )
-                              //       : const AssetImage(
-                              //           './assets/logos/bear-market.jpeg',
-                              //         ),
-                              //   opacity: 0.09,
-                              //   // colorFilter: const ColorFilter.mode(
-                              //   //   Colors.black87,
-                              //   //   BlendMode.colorDodge,
-                              //   // ),
-                              //   fit: BoxFit.cover,
-                              // ),
-                              // color: t.optiontype == "buy"
-                              //     ? Colors.green
-                              //     : Colors.red,
-                              borderRadius: BorderRadius.circular(12.0),
-                              boxShadow: [
-                                const BoxShadow(
-                                  offset: const Offset(5, 5),
-                                  blurRadius: 5,
-                                )
-                              ],
-                            ),
-                            alignment: Alignment.center,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  t.title.toUpperCase(),
-                                  style: GoogleFonts.exo2(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
+                        child: Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: ThemeService(context).isDark
+                                ? Colors.black12
+                                : Colors.white,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.0),
+                                spreadRadius: 0.0,
+                                blurRadius: 0.0,
+                                offset: const Offset(0, 0),
+                              ),
+                            ],
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                t.title.toUpperCase(),
+                                style: GoogleFonts.exo2(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w700,
                                 ),
-                                const SizedBox(height: 10),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(height: 10),
+                            ],
                           ),
                         ),
                       );
