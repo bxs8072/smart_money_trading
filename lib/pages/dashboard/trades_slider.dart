@@ -2,13 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:smart_money_trading/models/insight_alert.dart';
 import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/uis/trade_detail_ui/trade_detail_ui.dart';
 
 class TradesSlider extends StatefulWidget {
-  final List<TradeAlert> list;
+  final List<InsightAlert> list;
   const TradesSlider({
     Key? key,
     required this.list,
@@ -57,15 +58,11 @@ class _TradesSliderState extends State<TradesSlider> {
           Column(
             children: [
               CarouselSlider(
-                items: widget.list.map((TradeAlert t) {
+                items: widget.list.map((InsightAlert t) {
                   return Builder(
                     builder: (BuildContext context) {
                       return GestureDetector(
-                        onTap: () {
-                          NavigationService(context).push(
-                            TradeDetailUI(tradeAlert: t),
-                          );
-                        },
+                        onTap: () {},
                         child: Material(
                           elevation: 100,
                           child: Container(
@@ -91,10 +88,7 @@ class _TradesSliderState extends State<TradesSlider> {
                               //     : Colors.red,
                               borderRadius: BorderRadius.circular(12.0),
                               boxShadow: [
-                                BoxShadow(
-                                  color: t.optionType == "buy"
-                                      ? const Color.fromARGB(255, 14, 217, 92)
-                                      : const Color.fromARGB(255, 255, 79, 52),
+                                const BoxShadow(
                                   offset: const Offset(5, 5),
                                   blurRadius: 5,
                                 )
@@ -105,57 +99,13 @@ class _TradesSliderState extends State<TradesSlider> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  t.ticker.title.toUpperCase(),
+                                  t.title.toUpperCase(),
                                   style: GoogleFonts.exo2(
                                     fontSize: 20.0,
-                                    color: t.optionType == "buy"
-                                        ? Colors.black
-                                        : Colors.white,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 const SizedBox(height: 10),
-                                Text(
-                                  "${t.optionType.toUpperCase()}: ${t.strategy.toUpperCase()} @ \$${t.totalCost}",
-                                  style: GoogleFonts.exo2(
-                                    letterSpacing: 0.2,
-                                    color: t.optionType == "buy"
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Text(
-                                  "Strike prices:",
-                                  style: GoogleFonts.exo2(
-                                    letterSpacing: 0.2,
-                                    color: t.optionType == "buy"
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                for (var item in t.prices)
-                                  Text(
-                                    "\$ $item",
-                                    style: GoogleFonts.exo2(
-                                      letterSpacing: 0.2,
-                                      color: t.optionType == "buy"
-                                          ? Colors.black
-                                          : Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                Text(
-                                  "Exp. Date: ${DateFormat.yMd().format(t.datetime.toDate())}",
-                                  style: GoogleFonts.exo2(
-                                    letterSpacing: 0.2,
-                                    color: t.optionType == "buy"
-                                        ? Colors.black
-                                        : Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
                               ],
                             ),
                           ),

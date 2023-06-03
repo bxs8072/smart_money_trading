@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_money_trading/apis/benzinga_api.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smart_money_trading/models/insight_alert.dart';
 import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/pages/dashboard/trades_slider.dart';
 import 'package:smart_money_trading/services/size_service.dart';
@@ -31,11 +32,6 @@ class _DashboardState extends State<Dashboard> {
           key: widget.key,
           title: Row(
             children: [
-              // Image.asset(
-              //   "assets/oxt_logo_dash.png",
-              //   height: SizeService(context).height * 0.060,
-              //   alignment: Alignment.topCenter,
-              // ),
               Text(
                 "OXT",
                 style: GoogleFonts.righteous(
@@ -54,10 +50,13 @@ class _DashboardState extends State<Dashboard> {
             ),
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection("tradeAlerts")
-                  .where("createdAt",
-                      isGreaterThan: Timestamp.fromDate(DateTime(
-                          today.year, today.month, today.day, 0, 0, 0, 0)))
+                  .collection("insights")
+                  .where(
+                    "createdAt",
+                    isGreaterThan: Timestamp.fromDate(DateTime(
+                        today.year, today.month, today.day, 0, 0, 0, 0)),
+                  )
+                  .where("type", isEqualTo: "daily")
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -65,8 +64,8 @@ class _DashboardState extends State<Dashboard> {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  List<TradeAlert> list = snapshot.data!.docs
-                      .map((e) => TradeAlert.fromDoc(e))
+                  List<InsightAlert> list = snapshot.data!.docs
+                      .map((e) => InsightAlert.fromDoc(e))
                       .toList();
                   return TradesSlider(list: list);
                 }
