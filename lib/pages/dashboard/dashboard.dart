@@ -30,18 +30,18 @@ class _DashboardState extends State<Dashboard> {
           key: widget.key,
           title: Row(
             children: [
-              Image.asset(
-                "assets/oxt_logo_dash.png",
-                height: SizeService(context).height * 0.060,
-                alignment: Alignment.topCenter,
-              ),
-              // Text(
-              //   "OXT",
-              //   style: GoogleFonts.righteous(
-              //     fontSize: SizeService(context).height * 0.05,
-              //     fontWeight: FontWeight.w600,
-              //   ),
+              // Image.asset(
+              //   "assets/oxt_logo_dash.png",
+              //   height: SizeService(context).height * 0.060,
+              //   alignment: Alignment.topCenter,
               // ),
+              Text(
+                "OXT",
+                style: GoogleFonts.righteous(
+                  fontSize: SizeService(context).height * 0.05,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ],
           ),
         ),
@@ -53,8 +53,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
-                  .collection("optionAlerts")
-                  .where("isClosed", isEqualTo: true)
+                  .collection("tradeAlerts")
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
