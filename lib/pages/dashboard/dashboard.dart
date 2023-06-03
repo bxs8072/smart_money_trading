@@ -6,7 +6,7 @@ import 'package:smart_money_trading/models/customer.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_money_trading/models/insight_alert.dart';
 import 'package:smart_money_trading/models/trade_alert.dart';
-import 'package:smart_money_trading/pages/dashboard/trades_slider.dart';
+import 'package:smart_money_trading/pages/dashboard/insights_slider.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_tiles_builder.dart';
 
@@ -67,7 +67,7 @@ class _DashboardState extends State<Dashboard> {
                   List<InsightAlert> list = snapshot.data!.docs
                       .map((e) => InsightAlert.fromDoc(e))
                       .toList();
-                  return TradesSlider(list: list);
+                  return InsightsSlider(list: list);
                 }
               },
             ),
