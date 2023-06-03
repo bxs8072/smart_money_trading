@@ -15,6 +15,8 @@ class _CreateInsightAlertUIState extends State<CreateInsightAlertUI> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
 
+  String type = "daily";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +73,38 @@ class _CreateInsightAlertUIState extends State<CreateInsightAlertUI> {
                         },
                       ),
                     ),
+                    CustomCard(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 0.0,
+                        vertical: 3.0,
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: DropdownButton<String>(
+                        borderRadius: BorderRadius.circular(12.0),
+                        underline: const Center(),
+                        isExpanded: true,
+                        key: widget.key,
+                        value: type,
+                        items: ["daily", "weekly"]
+                            .map(
+                              (e) => DropdownMenuItem<String>(
+                                key: Key(e),
+                                value: e,
+                                child: Text(
+                                  e.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (val) {
+                          setState(() {
+                            type = val!;
+                          });
+                        },
+                      ),
+                    ),
                     ElevatedButton(
                         onPressed: () async {
                           await FirebaseFirestore.instance
@@ -78,7 +112,7 @@ class _CreateInsightAlertUIState extends State<CreateInsightAlertUI> {
                               .doc()
                               .set(InsightAlert(
                                       title: titleController.text.trim(),
-                                      type: "daily",
+                                      type: type,
                                       description:
                                           descriptionController.text.trim(),
                                       datetime: Timestamp.now(),
