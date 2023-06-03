@@ -93,6 +93,23 @@ class _TradesSliderState extends State<TradesSlider> {
                                 ),
                               ),
                               const SizedBox(height: 10),
+                              Text(
+                                t.description,
+                                style: GoogleFonts.exo2(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                Intl()
+                                    .date("MM.dd.yyyy hh:mm a")
+                                    .format(t.createdAt.toDate()),
+                                style: GoogleFonts.exo2(
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ],
                           ),
                         ),
