@@ -18,6 +18,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  DateTime today = DateTime.now();
   @override
   Widget build(BuildContext context) {
     BenzingaApi().getNews();
@@ -54,6 +55,9 @@ class _DashboardState extends State<Dashboard> {
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection("tradeAlerts")
+                  .where("createdAt",
+                      isGreaterThan: Timestamp.fromDate(DateTime(
+                          today.year, today.month, today.day, 0, 0, 0, 0)))
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
