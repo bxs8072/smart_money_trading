@@ -2,13 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:smart_money_trading/custom_widgets/custom_card.dart';
 import 'package:smart_money_trading/models/insight_alert.dart';
-import 'package:smart_money_trading/models/trade_alert.dart';
-import 'package:smart_money_trading/services/navigation_service.dart';
+import 'package:smart_money_trading/pages/dashboard/dashboard.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
-import 'package:smart_money_trading/uis/trade_detail_ui/trade_detail_ui.dart';
+import 'package:smart_money_trading/uis/trade_archives_ui/trade_archives_ui.dart';
+
+import '../../services/navigation_service.dart';
 
 class InsightsSlider extends StatefulWidget {
   final List<InsightAlert> list;
@@ -36,7 +36,7 @@ class _InsightsSliderState extends State<InsightsSlider> {
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
             title: Text(
-              "Trades",
+              "Market Insights",
               key: widget.key,
               style: GoogleFonts.lato(
                 fontSize: 16.0,
@@ -45,8 +45,7 @@ class _InsightsSliderState extends State<InsightsSlider> {
             ),
             trailing: TextButton(
               onPressed: () {
-                // NavigationService(context).push(
-                // );
+                NavigationService(context).push(const TradeArchives());
               },
               child: Text(
                 "Trade archives",
@@ -60,63 +59,65 @@ class _InsightsSliderState extends State<InsightsSlider> {
           Column(
             children: [
               CarouselSlider(
-                items: widget.list.map((InsightAlert t) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: ThemeService(context).isDark
-                                ? Colors.black12
-                                : Colors.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.0),
-                                spreadRadius: 0.0,
-                                blurRadius: 0.0,
-                                offset: const Offset(0, 0),
-                              ),
-                            ],
+                items: widget.list.map(
+                  (InsightAlert t) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: ThemeService(context).isDark
+                                  ? Colors.black12
+                                  : Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.0),
+                                  spreadRadius: 0.0,
+                                  blurRadius: 0.0,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  t.title.toUpperCase(),
+                                  style: GoogleFonts.exo2(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  t.description,
+                                  style: GoogleFonts.exo2(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  Intl()
+                                      .date("MM.dd.yyyy hh:mm a")
+                                      .format(t.createdAt.toDate()),
+                                  style: GoogleFonts.exo2(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                t.title.toUpperCase(),
-                                style: GoogleFonts.exo2(
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                t.description,
-                                style: GoogleFonts.exo2(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                Intl()
-                                    .date("MM.dd.yyyy hh:mm a")
-                                    .format(t.createdAt.toDate()),
-                                style: GoogleFonts.exo2(
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                }).toList(),
+                        );
+                      },
+                    );
+                  },
+                ).toList(),
                 options: CarouselOptions(
                   onPageChanged: (index, reason) {
                     setState(() {

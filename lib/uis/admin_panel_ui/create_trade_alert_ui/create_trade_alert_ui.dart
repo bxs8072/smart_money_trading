@@ -332,26 +332,28 @@ class _CreateTradeAlertUIState extends State<CreateTradeAlertUI> {
                         await FirebaseFirestore.instance
                             .collection("tradeAlerts")
                             .doc()
-                            .set(TradeAlert(
-                              ticker: selectedTicker,
-                              isClosed: true,
-                              strategy: selectedOptionStrategy,
-                              description: descriptionController.text.trim(),
-                              prices: strikePriceControllers
-                                  .map((e) => double.parse(
-                                        e.text.trim(),
-                                      ))
-                                  .toList(),
-                              datetime: Timestamp.fromDate(datetime),
-                              totalCost:
-                                  double.parse(totalCostController.text.trim()),
-                              pnl: double.parse(pnlController.text.trim()),
-                              optionType: optionType,
-                              docId: "",
-                              createdAt: Timestamp.now(),
-                              alertType: "TRADE_ALERT",
-                            ).toJson)
-                            .then((value) => Navigator.pop(context));
+                            .set(
+                              TradeAlert(
+                                ticker: selectedTicker,
+                                isClosed: true,
+                                strategy: selectedOptionStrategy,
+                                description: descriptionController.text.trim(),
+                                prices: strikePriceControllers
+                                    .map((e) => double.parse(
+                                          e.text.trim(),
+                                        ))
+                                    .toList(),
+                                datetime: Timestamp.fromDate(datetime),
+                                totalCost: double.parse(
+                                    totalCostController.text.trim()),
+                                pnl: double.parse(pnlController.text.trim()),
+                                optionType: optionType,
+                                docId: "",
+                                createdAt: Timestamp.now(),
+                                alertType: "TRADE_ALERT",
+                              ).toJson,
+                            )
+                            .then((value) => Navigator.pop(context),);
                       },
                       child: const Text("CREATE TRADE ALERT"),
                     ),

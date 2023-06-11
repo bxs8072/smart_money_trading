@@ -53,8 +53,17 @@ class _DashboardState extends State<Dashboard> {
                   .collection("insights")
                   .where(
                     "createdAt",
-                    isGreaterThan: Timestamp.fromDate(DateTime(
-                        today.year, today.month, today.day, 0, 0, 0, 0)),
+                    isGreaterThan: Timestamp.fromDate(
+                      DateTime(
+                        today.year,
+                        today.month,
+                        today.day,
+                        0,
+                        0,
+                        0,
+                        0,
+                      ),
+                    ),
                   )
                   .where("type", isEqualTo: "daily")
                   .snapshots(),

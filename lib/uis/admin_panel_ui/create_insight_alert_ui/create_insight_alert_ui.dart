@@ -106,21 +106,23 @@ class _CreateInsightAlertUIState extends State<CreateInsightAlertUI> {
                       ),
                     ),
                     ElevatedButton(
-                        onPressed: () async {
-                          await FirebaseFirestore.instance
-                              .collection("insights")
-                              .doc()
-                              .set(InsightAlert(
-                                      title: titleController.text.trim(),
-                                      type: type,
-                                      description:
-                                          descriptionController.text.trim(),
-                                      datetime: Timestamp.now(),
-                                      createdAt: Timestamp.now())
-                                  .toJson)
-                              .then((value) => Navigator.pop(context));
-                        },
-                        child: const Text("Submit")),
+                      onPressed: () async {
+                        await FirebaseFirestore.instance
+                            .collection("insights")
+                            .doc()
+                            .set(InsightAlert(
+                              title: titleController.text.trim(),
+                              type: type,
+                              description: descriptionController.text.trim(),
+                              datetime: Timestamp.now(),
+                              createdAt: Timestamp.now(),
+                            ).toJson)
+                            .then(
+                              (value) => Navigator.pop(context),
+                            );
+                      },
+                      child: const Text("Submit"),
+                    ),
                   ],
                 ),
               ),

@@ -59,13 +59,6 @@ class CustomTilesBuilder extends StatelessWidget {
               ),
             ],
           ),
-          // CustomTile(
-          //   onTap: () {},
-          //   top: "SM Charts",
-          //   title: "Stock Ticker",
-          //   height: 0.1,
-          //   weight: .45,
-          // ),
         ],
       ),
     );

@@ -68,10 +68,20 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard), label: "Dashboard"),
-            BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: "News"),
+              icon: Icon(Icons.bar_chart),
+              label: "Dashboard",
+            ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_box), label: "Account"),
+                icon: Icon(
+                  Icons.newspaper_outlined,
+                ),
+                label: "News"),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.account_box,
+              ),
+              label: "Account",
+            ),
           ],
           currentIndex: currentIndex,
           selectedItemColor: ThemeService(context).isDark
