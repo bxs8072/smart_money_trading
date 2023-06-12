@@ -13,13 +13,13 @@ List<Ticker> stockTickerList = [
   Ticker(
       "SPDR® S&P 500",
       "The S&P 500 (Standard & Poor's 500) is a stock market index that measures the performance of 500 of the largest publicly traded companies in the United States",
-      "assets/logos/snp500.png"),
+      "assets/spx_logo.png"),
   Ticker(
       "Nasdaq",
       "The NASDAQ (National Association of Securities Dealers Automated Quotations) is an electronic stock exchange that primarily trades technology and internet-related stocks",
-      "assets/logos/nasdaq2.png"),
+      "assets/nasdaq_logo.png"),
   Ticker(
-      "Russell 3000",
-      "The Russell 3000 Index is a market capitalization-weighted stock market index that measures the performance of the 3000 largest publicly traded companies in the United States",
-      "assets/logos/russl300.png"),
+      "Russell 2000",
+      "The Russell 2000 Index is a market capitalization-weighted stock market index that measures the performance of the 3000 largest publicly traded companies in the United States",
+      "assets/russ_logo.png"),
 ];

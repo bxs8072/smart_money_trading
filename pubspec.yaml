@@ -81,6 +81,9 @@ flutter:
   assets:
   - assets/oxt_logo.png
   - assets/oxt_logo_dash.png
+  - assets/spx_logo.png
+  - assets/nasdaq_logo.png
+  - assets/russ_logo.png
   - assets/market-insight/
   - assets/trading-tips/
   
