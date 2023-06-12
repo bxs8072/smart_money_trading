@@ -32,75 +32,82 @@ class TradeArchives extends StatelessWidget {
             return const CircularProgressIndicator();
           }
 
-          return ListView(
-            children: snapshot.data!.docs.map(
-              (DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
+          return ListView.builder(
+            itemCount: snapshot.data?.docs.length ?? 0,
+            itemBuilder: (BuildContext context, int index) {
+              final document = snapshot.data?.docs[index];
+              if (document == null) {
+                return const SizedBox(); // or any other widget to handle null document
+              }
 
-                String optionType = data['optionType'].toString().toUpperCase();
-                String textValue = '';
-                if (optionType == 'SELL') {
-                  textValue = 'Sold';
-                } else if (optionType == 'BUY') {
-                  textValue = 'Bought';
-                }
+              final data = document.data() as Map<String, dynamic>?;
 
-                return Card(
-                  elevation: 10,
-                  margin: const EdgeInsets.all(2),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ListTile(
-                          // onTap: () => NavigationService(context).push(const TradeDetailUI(tradeAler,)),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 1.0, vertical: 2.0),
-                          leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                                50.0), // Adjust the radius as needed
-                            child: Image.asset(
-                              data['ticker']['image'],
-                            ),
-                          ),
-                          subtitle: Text(
-                            '$textValue \n${data['prices'].map((price) => price.toStringAsFixed(0)).join('∕')}\n${data['strategy'].toString().toUpperCase()} for ${data['totalCost']} at ${Intl().date("hh:mm a").format(data['createdAt'].toDate())}',
-                            style: GoogleFonts.exo2(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          title: Text(
-                            data['ticker']['title'],
-                            style: GoogleFonts.exo2(
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          trailing: Text(
-                            '${data['pnl'].toStringAsFixed(0)}%',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: SizeService(context).height * 0.02,
-                              color:
-                                  data['pnl'] >= 0 ? Colors.green : Colors.red,
-                            ),
+              if (data == null) {
+                return const SizedBox(); // or any other widget to handle null data
+              }
+
+              String optionType = data['optionType'].toString().toUpperCase();
+              String textValue = '';
+              if (optionType == 'SELL') {
+                textValue = 'Sold';
+              } else if (optionType == 'BUY') {
+                textValue = 'Bought';
+              }
+
+              return Card(
+                elevation: 10,
+                margin: const EdgeInsets.all(2),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column(
+                    // crossAxisAlignment: CrossAxisAlignment.center,
+                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ListTile(
+                        // onTap: () => NavigationService(context).push(const TradeDetailUI(tradeAler,)),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 1.0, vertical: 2.0),
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(
+                              50.0), // Adjust the radius as needed
+                          child: data['ticker'] != null &&
+                                  data['ticker']['image'] != null
+                              ? Image.asset(
+                                  data['ticker']['image'],
+                                )
+                              : Container(),
+                        ),
+                        subtitle: Text(
+                          '$textValue \n${data['prices'] != null ? data['prices'].map((price) => price.toStringAsFixed(0)).join('∕') : ''}\n${data['strategy'].toString().toUpperCase()} for ${data['totalCost']} at ${data['createdAt'] != null ? Intl().date("hh:mm a").format(data['createdAt'].toDate()) : ''}',
+                          style: GoogleFonts.exo2(
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                        // Text(
-                        //   '@${Intl().date("MM.dd.yyyy hh:mm a").format(data['createdAt'].toDate())}',
-                        //   style: GoogleFonts.exo2(
-                        //     fontSize: 14.0,
-                        //     fontWeight: FontWeight.w700,
-                        //   ),
-                        // ),
-                      ],
-                    ),
+                        title: Text(
+                          data['ticker'] != null &&
+                                  data['ticker']['title'] != null
+                              ? data['ticker']['title']
+                              : '',
+                          style: GoogleFonts.exo2(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        trailing: Text(
+                          '${data['pnl'] != null ? data['pnl'].toStringAsFixed(0) : ''}%',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: SizeService(context).height * 0.02,
+                            color: data['pnl'] != null && data['pnl'] >= 0
+                                ? Colors.green
+                                : Colors.red,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                );
-              },
-            ).toList(),
+                ),
+              );
+            },
           );
         },
       ),
