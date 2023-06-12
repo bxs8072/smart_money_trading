@@ -60,4 +60,6 @@ class TradeAlert {
       alertType: doc.get('alertType'),
     );
   }
+
+  static fromJson(Iterable values) {}
 }
