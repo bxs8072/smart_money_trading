@@ -95,7 +95,7 @@ class _InsightReplyUIState extends State<InsightReplyUI> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 2.0, vertical: 0.0),
               child: Card(
-                elevation: 0.0,
+                elevation: 5.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(0.0),
                 ),

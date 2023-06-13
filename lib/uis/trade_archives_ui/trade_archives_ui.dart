@@ -59,7 +59,7 @@ class TradeArchives extends StatelessWidget {
               TradeAlert tradeAlert = TradeAlert.fromDoc(document);
 
               return Card(
-                elevation: 10,
+                elevation: 1,
                 margin: const EdgeInsets.all(8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),

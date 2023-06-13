@@ -276,7 +276,8 @@ class _TradeReplyUIState extends State<TradeReplyUI> {
                                         ),
                                         Text(
                                           Intl().date().format(
-                                              comment.createdAt.toDate()),
+                                                comment.createdAt.toDate(),
+                                              ),
                                           style: GoogleFonts.lato(
                                             fontSize: 12.0,
                                           ),

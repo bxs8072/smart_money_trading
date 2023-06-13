@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/insight_alert.dart';
+import 'package:smart_money_trading/models/trade_alert.dart';
 import 'package:smart_money_trading/pages/dashboard/dashboard.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
+import 'package:smart_money_trading/uis/insight_detail_ui/insight_detail_ui.dart';
 import 'package:smart_money_trading/uis/trade_archives_ui/trade_archives_ui.dart';
 
 import '../../services/navigation_service.dart';
@@ -36,7 +38,7 @@ class _InsightsSliderState extends State<InsightsSlider> {
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
             title: Text(
-              "Market Insights",
+              "Recent insights",
               key: widget.key,
               style: GoogleFonts.lato(
                 fontSize: 16.0,
@@ -47,103 +49,117 @@ class _InsightsSliderState extends State<InsightsSlider> {
               onPressed: () {
                 NavigationService(context).push(const TradeArchives());
               },
-              child: Text(
-                "Trade archives",
-                style: GoogleFonts.exo2(
-                  fontWeight: FontWeight.w400,
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.black87.withOpacity(0.69)),
+                child: Text(
+                  "Trade archives",
+                  style: GoogleFonts.exo2(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                  key: widget.key,
                 ),
-                key: widget.key,
               ),
             ),
           ),
           Column(
             children: [
-              CarouselSlider(
-                items: widget.list.map(
-                  (InsightAlert t) {
-                    return Builder(
-                      builder: (BuildContext context) {
-                        return GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              border: Border.all(
+              InkWell(
+                onTap: () {
+                  NavigationService(context).push(InsightDetailUI(
+                    insightAlert: widget.list[current],
+                  ));
+                },
+                child: CarouselSlider(
+                  items: widget.list.map(
+                    (InsightAlert t) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return GestureDetector(
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: ThemeService(context).isDark
+                                      ? Colors.black12
+                                      : Colors.white,
+                                ),
                                 color: ThemeService(context).isDark
                                     ? Colors.black12
                                     : Colors.white,
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(10)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.0),
+                                    spreadRadius: 0.0,
+                                    blurRadius: 0.0,
+                                    offset: const Offset(0, 0),
+                                  ),
+                                ],
                               ),
-                              color: ThemeService(context).isDark
-                                  ? Colors.black12
-                                  : Colors.white,
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(10)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.0),
-                                  spreadRadius: 0.0,
-                                  blurRadius: 0.0,
-                                  offset: const Offset(0, 0),
-                                ),
-                              ],
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    t.title.toUpperCase(),
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.exo2(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    // overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    t.description,
+                                    style: GoogleFonts.exo2(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    Intl()
+                                        .date("MM.dd.yyyy hh:mm a")
+                                        .format(t.createdAt.toDate()),
+                                    style: GoogleFonts.exo2(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  t.title.toUpperCase(),
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.exo2(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  // overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  t.description,
-                                  style: GoogleFonts.exo2(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  Intl()
-                                      .date("MM.dd.yyyy hh:mm a")
-                                      .format(t.createdAt.toDate()),
-                                  style: GoogleFonts.exo2(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ).toList(),
-                options: CarouselOptions(
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      current = index;
-                    });
-                  },
-                  height: SizeService(context).height * 0.25,
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 1.0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 10),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
-                  autoPlayCurve: Curves.fastOutSlowIn,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
+                          );
+                        },
+                      );
+                    },
+                  ).toList(),
+                  options: CarouselOptions(
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        current = index;
+                      });
+                    },
+                    height: SizeService(context).height * 0.25,
+                    aspectRatio: 16 / 9,
+                    viewportFraction: 1.0,
+                    enableInfiniteScroll: true,
+                    reverse: false,
+                    autoPlay: true,
+                    autoPlayInterval: const Duration(seconds: 10),
+                    autoPlayAnimationDuration:
+                        const Duration(milliseconds: 800),
+                    autoPlayCurve: Curves.fastOutSlowIn,
+                    enlargeCenterPage: true,
+                    scrollDirection: Axis.horizontal,
+                  ),
                 ),
               ),
               const SizedBox(

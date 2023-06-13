@@ -12,7 +12,9 @@ import 'package:smart_money_trading/services/theme_services/dark_theme.dart';
 import 'package:smart_money_trading/services/theme_services/light_theme.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:theme_provider/theme_provider.dart';
+// ignore: depend_on_referenced_packages
 import 'package:timezone/data/latest_all.dart' as tz;
+// ignore: depend_on_referenced_packages
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_timezone/flutter_timezone.dart';
 

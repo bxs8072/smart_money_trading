@@ -21,6 +21,20 @@ class TradeDetailUI extends StatefulWidget {
 
 class _TradeDetailUIState extends State<TradeDetailUI> {
   TextEditingController commentController = TextEditingController();
+  String formatDateTime(DateTime dateTime) {
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
+
+    if (difference.inSeconds < 60) {
+      return "${difference.inSeconds}s";
+    } else if (difference.inMinutes < 60) {
+      return "${difference.inMinutes}m";
+    } else if (difference.inHours < 24) {
+      return "${difference.inHours}h";
+    } else {
+      return "${difference.inDays}d";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +49,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                     leading: CloseButton(key: widget.key),
                     title: Text(
                       "Write Your Comment",
-                      style: GoogleFonts.lato(
+                      style: GoogleFonts.exo2(
                           fontSize: SizeService(context).height * 0.02),
                     ),
                     actions: [
@@ -56,7 +70,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                           },
                           child: Text(
                             "Post",
-                            style: GoogleFonts.lato(
+                            style: GoogleFonts.exo2(
                               color: Colors.blue,
                               fontWeight: FontWeight.w700,
                             ),
@@ -82,7 +96,9 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                 );
               });
         },
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.comment_outlined,
+        ),
       ),
       key: widget.key,
       body: CustomScrollView(
@@ -90,41 +106,113 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
         slivers: [
           SliverAppBar(
             key: widget.key,
-            title: Text(widget.tradeAlert.ticker.title),
+            title: Text(
+              widget.tradeAlert.ticker.title,
+              style: const TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+
+            // centerTitle: true,
+            // leadingWidth: SizeService(context).height * 0.2,
+            // leading: ClipRRect(
+            //   borderRadius: BorderRadius.circular(24),
+            //   child: Image.asset(
+            //     widget.tradeAlert.ticker.image,
+            //     // alignment: Alignment.centerLeft,
+            //     width: 48,
+            //     height: 48,
+            //   ),
+            // ),
             pinned: true,
           ),
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(16.0),
               child: Card(
-                elevation: 0.00,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0),
+                  borderRadius: BorderRadius.circular(12.0),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 8.0),
                       Text(
-                        widget.tradeAlert.ticker.title,
-                        style: GoogleFonts.lato(
-                          color: ThemeService.success,
-                          fontWeight: FontWeight.w600,
+                        widget.tradeAlert.description,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: Colors.grey[800],
                         ),
                       ),
-                      Text(widget.tradeAlert.description),
-                      Text("Total Cost: \$ ${widget.tradeAlert.totalCost}"),
-                      Column(
-                        children: widget.tradeAlert.prices
-                            .map((item) => Text(
-                                "Strike Price ${widget.tradeAlert.prices.indexOf(item) + 1}: \$ $item"))
-                            .toList(),
+                      const SizedBox(height: 16.0),
+                      const Text(
+                        "Total Cost:",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
                       ),
                       Text(
-                        "Expires At: ${Intl().date().format(widget.tradeAlert.datetime.toDate())}",
-                        style: GoogleFonts.lato(
-                          color: ThemeService.error,
-                          fontWeight: FontWeight.w600,
+                        "\$${widget.tradeAlert.totalCost}",
+                        style: const TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      const Text(
+                        "Strikes:",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.tradeAlert.prices.join("/"),
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.grey[800],
+                            ),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 16.0),
+                      const Text(
+                        "P&L:",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Text(
+                        '${widget.tradeAlert.pnl.toStringAsFixed(0)}%',
+                        style: TextStyle(
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                          color: widget.tradeAlert.pnl >= 0
+                              ? Colors.green
+                              : Colors.red,
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      Text(
+                        "Published: ${formatDateTime(widget.tradeAlert.datetime.toDate())} ago",
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
                         ),
                       ),
                     ],
@@ -171,7 +259,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                             child: Text(
                               "Be First To Comment !!!",
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.lato(
+                              style: GoogleFonts.exo2(
                                   fontWeight: FontWeight.w900, fontSize: 20.0),
                             ),
                           ),
@@ -208,7 +296,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                                       children: [
                                         Text(
                                           "${customer.firstname} ${customer.lastname}",
-                                          style: GoogleFonts.lato(
+                                          style: GoogleFonts.exo2(
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w700,
                                           ),
@@ -216,7 +304,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                                         Text(
                                           Intl().date().format(
                                               comment.createdAt.toDate()),
-                                          style: GoogleFonts.lato(
+                                          style: GoogleFonts.exo2(
                                             fontSize: 12.0,
                                           ),
                                         ),
@@ -228,7 +316,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                                 children: [
                                   Text(
                                     comment.comment,
-                                    style: GoogleFonts.lato(
+                                    style: GoogleFonts.exo2(
                                       fontSize: 12.0,
                                     ),
                                   ),
@@ -261,7 +349,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                                         },
                                         label: Text(
                                           comment.likes!.length.toString(),
-                                          style: GoogleFonts.lato(
+                                          style: GoogleFonts.exo2(
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -300,7 +388,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                                               label: Text(
                                                 snapshot.data!.docs.length
                                                     .toString(),
-                                                style: GoogleFonts.lato(
+                                                style: GoogleFonts.exo2(
                                                   fontSize: 12.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
