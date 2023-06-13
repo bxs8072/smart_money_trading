@@ -21,8 +21,10 @@ class TradeArchives extends StatelessWidget {
         ),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream:
-            FirebaseFirestore.instance.collection('tradeAlerts').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('tradeAlerts')
+            .orderBy("createdAt", descending: true)
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
@@ -58,7 +60,10 @@ class TradeArchives extends StatelessWidget {
 
               return Card(
                 elevation: 10,
-                margin: const EdgeInsets.all(2),
+                margin: const EdgeInsets.all(8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
@@ -70,33 +75,23 @@ class TradeArchives extends StatelessWidget {
                     );
                   },
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ListTile(
-                          // onTap: () => NavigationService(context).push(const TradeDetailUI(tradeAler,)),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 3.0,
-                            vertical: 2.0,
-                          ),
-
+                          contentPadding: const EdgeInsets.all(0),
                           leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(
-                                50.0), // Adjust the radius as needed
+                            borderRadius: BorderRadius.circular(24),
                             child: data['ticker'] != null &&
                                     data['ticker']['image'] != null
                                 ? Image.asset(
                                     data['ticker']['image'],
+                                    width: 48,
+                                    height: 48,
+                                    fit: BoxFit.cover,
                                   )
                                 : Container(),
-                          ),
-                          subtitle: Text(
-                            '$textValue \n${data['prices'] != null ? data['prices'].map((price) => price.toStringAsFixed(0)).join('∕') : ''}\n${data['strategy'].toString().toUpperCase()} for ${data['totalCost']}\nat ${data['createdAt'] != null ? Intl().date("hh:mm a").format(data['createdAt'].toDate()) : ''}',
-                            style: GoogleFonts.exo2(
-                              fontWeight: FontWeight.w600,
-                            ),
                           ),
                           title: Text(
                             data['ticker'] != null &&
@@ -104,17 +99,70 @@ class TradeArchives extends StatelessWidget {
                                 ? data['ticker']['title']
                                 : '',
                             style: GoogleFonts.exo2(
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
                             ),
                           ),
-                          trailing: Text(
-                            '${data['pnl'] != null ? data['pnl'].toStringAsFixed(0) : ''}%',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: SizeService(context).height * 0.02,
+                          subtitle: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  textValue,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  '${data['prices'] != null ? data['prices'].map((price) => price.toStringAsFixed(0)).join(' / ') : ''}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  '${data['strategy'].toString().toUpperCase()} for ${data['totalCost']}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'at ${data['createdAt'] != null ? DateFormat('hh:mm a').format(data['createdAt'].toDate()) : ''}',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          trailing: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
                               color: data['pnl'] != null && data['pnl'] >= 0
-                                  ? Colors.green
-                                  : Colors.red,
+                                  ? Colors.green.withOpacity(0.2)
+                                  : Colors.red.withOpacity(0.2),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 12),
+                            child: Text(
+                              '${data['pnl'] != null ? data['pnl'].toStringAsFixed(0) : ''}%',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                                color: data['pnl'] != null && data['pnl'] >= 0
+                                    ? Colors.green
+                                    : Colors.red,
+                              ),
                             ),
                           ),
                         ),

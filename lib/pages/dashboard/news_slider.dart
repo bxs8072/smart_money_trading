@@ -44,7 +44,7 @@ class _NewsSliderState extends State<NewsSlider> {
                           image: NetworkImage(
                             data["image"][0]["url"],
                           ),
-                          opacity: .9,
+                          opacity: 90,
                           colorFilter: const ColorFilter.mode(
                             Colors.black87,
                             BlendMode.colorDodge,
@@ -68,10 +68,13 @@ class _NewsSliderState extends State<NewsSlider> {
                           Text(
                             data['title'],
                             style: GoogleFonts.lato(
-                              fontSize: 12.0,
+                              fontSize: 18.0,
                               color: Colors.white,
                               fontWeight: FontWeight.w900,
                             ),
+                            maxLines: 4,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.clip,
                           ),
                           const SizedBox(height: 10),
                           Text(
@@ -95,7 +98,7 @@ class _NewsSliderState extends State<NewsSlider> {
                 });
               },
               // height: 400.0,
-              aspectRatio: 9 / 18,
+              aspectRatio: 9.5 / 18,
               viewportFraction: 3.0,
               enableInfiniteScroll: true,
               reverse: false,

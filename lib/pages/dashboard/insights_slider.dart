@@ -68,6 +68,11 @@ class _InsightsSliderState extends State<InsightsSlider> {
                           child: Container(
                             width: double.infinity,
                             decoration: BoxDecoration(
+                              border: Border.all(
+                                color: ThemeService(context).isDark
+                                    ? Colors.black12
+                                    : Colors.white,
+                              ),
                               color: ThemeService(context).isDark
                                   ? Colors.black12
                                   : Colors.white,
@@ -87,10 +92,12 @@ class _InsightsSliderState extends State<InsightsSlider> {
                               children: [
                                 Text(
                                   t.title.toUpperCase(),
+                                  textAlign: TextAlign.center,
                                   style: GoogleFonts.exo2(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w600,
                                   ),
+                                  // overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
@@ -99,6 +106,7 @@ class _InsightsSliderState extends State<InsightsSlider> {
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w700,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
@@ -109,6 +117,7 @@ class _InsightsSliderState extends State<InsightsSlider> {
                                     fontSize: 14.0,
                                     fontWeight: FontWeight.w700,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ],
                             ),
