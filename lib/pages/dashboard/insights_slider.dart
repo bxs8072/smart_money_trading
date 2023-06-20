@@ -40,28 +40,9 @@ class _InsightsSliderState extends State<InsightsSlider> {
             title: Text(
               "Recent insights",
               key: widget.key,
-              style: GoogleFonts.lato(
+              style: GoogleFonts.exo2(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w600,
-              ),
-            ),
-            trailing: TextButton(
-              onPressed: () {
-                NavigationService(context).push(const TradeArchives());
-              },
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.black87.withOpacity(0.69)),
-                child: Text(
-                  "Trade archives",
-                  style: GoogleFonts.exo2(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                  key: widget.key,
-                ),
               ),
             ),
           ),
@@ -147,8 +128,8 @@ class _InsightsSliderState extends State<InsightsSlider> {
                         current = index;
                       });
                     },
-                    height: SizeService(context).height * 0.25,
-                    aspectRatio: 16 / 9,
+                    height: SizeService(context).height * 0.20,
+                    aspectRatio: 12 / 35,
                     viewportFraction: 1.0,
                     enableInfiniteScroll: true,
                     reverse: false,

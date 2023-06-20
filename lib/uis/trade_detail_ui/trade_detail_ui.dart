@@ -31,8 +31,10 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
       return "${difference.inMinutes}m";
     } else if (difference.inHours < 24) {
       return "${difference.inHours}h";
+    } else if (difference.inDays == 1) {
+      return "${difference.inDays} day";
     } else {
-      return "${difference.inDays}d";
+      return "${difference.inDays} days";
     }
   }
 
@@ -207,7 +209,7 @@ class _TradeDetailUIState extends State<TradeDetailUI> {
                       ),
                       const SizedBox(height: 16.0),
                       Text(
-                        "Published: ${formatDateTime(widget.tradeAlert.datetime.toDate())} ago",
+                        "Published: ${formatDateTime(widget.tradeAlert.createdAt.toDate())} ago",
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: 12.0,

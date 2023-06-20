@@ -98,7 +98,7 @@ class _NewsSliderState extends State<NewsSlider> {
                 });
               },
               // height: 400.0,
-              aspectRatio: 9.5 / 18,
+              aspectRatio: 9 / 18,
               viewportFraction: 3.0,
               enableInfiniteScroll: true,
               reverse: false,

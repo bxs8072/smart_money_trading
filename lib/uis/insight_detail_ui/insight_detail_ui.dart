@@ -23,18 +23,20 @@ class InsightDetailUI extends StatefulWidget {
 class _InsightDetailUIState extends State<InsightDetailUI> {
   TextEditingController commentController = TextEditingController();
 
-  String formatDateTime(DateTime dateTime) {
+  String _getTimeDifference(DateTime createdAt) {
     final now = DateTime.now();
-    final difference = now.difference(dateTime);
+    final difference = now.difference(createdAt);
 
     if (difference.inSeconds < 60) {
-      return "${difference.inSeconds}secs";
+      return "${difference.inSeconds} secs ago";
     } else if (difference.inMinutes < 60) {
-      return "${difference.inMinutes}mins";
+      return "${difference.inMinutes} mins ago";
     } else if (difference.inHours < 24) {
-      return "${difference.inHours}hrs";
+      return "${difference.inHours} hrs ago";
+    } else if (difference.inDays == 1) {
+      return "${difference.inDays} day ago";
     } else {
-      return "${difference.inDays}hrs";
+      return "${difference.inDays} days ago";
     }
   }
 
@@ -141,7 +143,7 @@ class _InsightDetailUIState extends State<InsightDetailUI> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        "Published: ${formatDateTime(widget.insightAlert.datetime.toDate())}",
+                        'Published: ${_getTimeDifference(widget.insightAlert.createdAt.toDate())}',
                         style: const TextStyle(
                           fontSize: 14,
                           color: Colors.grey,

@@ -12,6 +12,7 @@ import 'package:smart_money_trading/pages/news-page/news_page.dart';
 import 'package:smart_money_trading/services/notification_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:theme_provider/theme_provider.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
   final Customer customer;
@@ -68,14 +69,15 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart),
+              icon: Icon(EvaIcons.barChart2Outline),
               label: "Dashboard",
             ),
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.newspaper_outlined,
-                ),
-                label: "News"),
+              icon: Icon(
+                Icons.newspaper_outlined,
+              ),
+              label: "News",
+            ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.account_box,

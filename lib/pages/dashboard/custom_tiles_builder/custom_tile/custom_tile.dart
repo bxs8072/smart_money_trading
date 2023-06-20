@@ -28,15 +28,15 @@ class CustomTile extends StatelessWidget {
       child: Column(
         children: [
           Material(
-            elevation: 20,
-            borderRadius: BorderRadius.circular(20),
+            elevation: 10,
+            borderRadius: BorderRadius.circular(8),
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: image.image,
                   fit: BoxFit.cover,
                 ),
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(8),
                 color: color,
               ),
               alignment: Alignment.center,
@@ -53,7 +53,7 @@ class CustomTile extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(5.0),
             child: Text(
               title,
               style: GoogleFonts.exo2(

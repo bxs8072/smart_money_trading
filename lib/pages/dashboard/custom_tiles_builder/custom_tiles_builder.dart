@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:smart_money_trading/apis/benzinga_api.dart';
 import 'package:smart_money_trading/models/customer.dart';
-import 'package:smart_money_trading/pages/dashboard/news_slider.dart';
+import 'package:smart_money_trading/pages/market_insight/market_insight_page.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/theme_services/dark_theme.dart';
 import 'package:smart_money_trading/services/theme_services/light_theme.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_tile/custom_tile.dart';
-import 'package:smart_money_trading/uis/trade_detail_ui/trade_detail_ui.dart';
 
 class CustomTilesBuilder extends StatelessWidget {
   final Customer person;
@@ -22,34 +20,33 @@ class CustomTilesBuilder extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FutureBuilder<List<Map<String, dynamic>>>(
-                  initialData: [],
-                  future: BenzingaApi().getNews(),
-                  builder: (context, snapshot) {
-                    return Expanded(child: NewsSlider(list: snapshot.data!));
-                  }),
               const SizedBox(
-                width: 8,
+                width: 5,
               ),
-              Column(
+              Row(
                 children: [
                   CustomTile(
-                    onTap: () {},
+                    onTap: () {
+                      NavigationService(context).push(const MarketInsight());
+                    },
                     top: "",
                     title: "Market Insights",
-                    height: 0.20,
-                    weight: 0.20,
+                    height: 0.10,
+                    weight: 0.22,
                     color: ThemeService.dark,
                     image: Image.asset(
                       "assets/market-insight/market-insight.jpg",
                     ),
                   ),
+                  const SizedBox(
+                    width: 6,
+                  ),
                   CustomTile(
                     onTap: () {},
                     top: "",
-                    title: "Trading Strategies \n& Risk Management",
-                    height: 0.20,
-                    weight: 0.20,
+                    title: "Educational Matrial",
+                    height: 0.10,
+                    weight: 0.22,
                     color: ThemeService.dark,
                     image: Image.asset(
                       "assets/trading-tips/trading-tips.jpg",
