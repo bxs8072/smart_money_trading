@@ -38,7 +38,7 @@ class _InsightsSliderState extends State<InsightsSlider> {
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 0.0),
             title: Text(
-              "Recent insights",
+              "Market Alerts",
               key: widget.key,
               style: GoogleFonts.exo2(
                 fontSize: 16.0,

@@ -21,6 +21,7 @@ class LandingScreen extends StatelessWidget {
             );
           } else {
             if (snapshot.hasData) {
+             
               return HomeLandingScreen(key: key);
             } else {
               return AuthenticationScreen(key: key);

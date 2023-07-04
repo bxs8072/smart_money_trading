@@ -26,7 +26,28 @@ class HomeLandingScreen extends StatelessWidget {
           }
           if (snapshot.data!["setup"]) {
             Customer customer = Customer.fromJson(snapshot.data);
-            return HomeScreen(key: key, customer: customer);
+
+            return StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection("subscriptions")
+                  .doc(customer.stripeCustomerId)
+                  .snapshots(),
+              builder: (context, snapshot2) {
+                if (snapshot2.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                if (!snapshot2.data!.exists) {
+                  customer.isSubscribed = false;
+                } else {
+                  customer.isSubscribed =
+                      snapshot2.data!.get("status") == "active";
+                }
+                return HomeScreen(key: key, customer: customer);
+              },
+            );
           } else {
             return SetupScreen(key: key);
           }

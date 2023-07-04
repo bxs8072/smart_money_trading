@@ -12,6 +12,7 @@ class Customer {
   final String firebaseUid;
   final String? stripeCustomerId;
   final Address address;
+  bool isSubscribed;
 
   Customer({
     required this.firstname,
@@ -24,6 +25,7 @@ class Customer {
     required this.firebaseUid,
     this.stripeCustomerId,
     required this.address,
+    required this.isSubscribed,
   });
 
   Map<String, dynamic> get toJson => {
@@ -37,6 +39,7 @@ class Customer {
         "firebaseUid": firebaseUid,
         "stripeCustomerId": stripeCustomerId,
         "address": address.toJson,
+        "isSubscribed": isSubscribed,
       };
 
   factory Customer.fromJson(dynamic jsonData) {
@@ -49,6 +52,7 @@ class Customer {
       phone: jsonData["phone"],
       dateOfBirth: jsonData["dateOfBirth"],
       firebaseUid: jsonData["firebaseUid"],
+      isSubscribed: false,
       stripeCustomerId: jsonData["stripeCustomerId"],
       address: Address.fromJson(jsonData["address"]),
     );

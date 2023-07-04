@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_money_trading/models/insight_alert.dart';
+import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/uis/insight_detail_ui/insight_detail_ui.dart';
 
 class MarketInsight extends StatefulWidget {
@@ -93,9 +94,12 @@ class _MarketInsightState extends State<MarketInsight> {
                 ListTile(
                   title: Text(
                     data['title'] ?? '',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: ThemeService(context).isDark
+                          ? Colors.white
+                          : Colors.black87,
                     ),
                   ),
                   subtitle: Padding(
@@ -106,7 +110,9 @@ class _MarketInsightState extends State<MarketInsight> {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey[800],
+                        color: ThemeService(context).isDark
+                            ? Colors.white
+                            : Colors.black87,
                       ),
                     ),
                   ),

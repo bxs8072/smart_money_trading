@@ -26,9 +26,13 @@ class AppDrawer extends StatelessWidget {
                       child: Column(
                         children: [
                           ListTile(
-                            leading: const Icon(
-                              Icons.dark_mode,
-                              color: ThemeService.dark,
+                            leading: Icon(
+                              ThemeService(context).isDark
+                                  ? Icons.light_rounded
+                                  : Icons.light_outlined,
+                              color: ThemeService(context).isDark
+                                  ? Colors.white
+                                  : Colors.black87,
                             ),
                             title: const Text("Dark Mode"),
                             subtitle: Text(ThemeService.darkId ==
@@ -59,7 +63,9 @@ class AppDrawer extends StatelessWidget {
                 },
                 leading: Icon(
                   Icons.door_back_door_outlined,
-                  color: ThemeService.secondary,
+                  color: ThemeService(context).isDark
+                      ? Colors.white
+                      : Colors.black54,
                   key: key,
                 ),
                 title: Text(

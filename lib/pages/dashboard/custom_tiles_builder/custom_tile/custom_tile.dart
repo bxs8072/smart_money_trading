@@ -6,63 +6,45 @@ class CustomTile extends StatelessWidget {
   final Function() onTap;
   final String top;
   final String title;
-  final double height;
-  final double weight;
   final Color color;
-  final Image image;
+  final String image;
   const CustomTile({
     Key? key,
     required this.onTap,
     required this.top,
     required this.title,
-    required this.height,
     required this.image,
-    required this.weight,
     required this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Material(
-            elevation: 10,
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: image.image,
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(8),
-                color: color,
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: Image.asset(
+                image,
+                fit: BoxFit.cover,
+                height: SizeService(context).height * 0.15,
+                width: SizeService(context).width * 0.46,
               ),
-              alignment: Alignment.center,
-              height: SizeService(context).height * height,
-              width: SizeService(context).height * weight,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
               child: Text(
-                top,
-                textAlign: TextAlign.center,
+                title,
                 style: GoogleFonts.exo2(
-                  fontSize: 25.0,
-                  color: const Color.fromARGB(255, 238, 241, 242),
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Text(
-              title,
-              style: GoogleFonts.exo2(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

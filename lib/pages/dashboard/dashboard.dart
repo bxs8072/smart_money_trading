@@ -14,6 +14,8 @@ import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_
 import 'package:smart_money_trading/uis/trade_detail_ui/trade_detail_ui.dart';
 
 import '../../services/navigation_service.dart';
+import '../../services/subscribe_card.dart';
+import '../../services/theme_services/theme_service.dart';
 import '../../uis/trade_archives_ui/trade_archives_ui.dart';
 
 class Dashboard extends StatefulWidget {
@@ -34,7 +36,6 @@ class _DashboardState extends State<Dashboard> {
       endDrawer: const AppDrawer(),
       appBar: AppBar(
         centerTitle: true,
-
         title: Row(
           children: [
             Text(
@@ -46,71 +47,52 @@ class _DashboardState extends State<Dashboard> {
             ),
           ],
         ),
-        // leading: IconButton(
-        //   icon: Icon(Icons.menu),
-        //   onPressed: () {
-        //     // Open the app drawer here
-        //     const AppDrawer();
-        //   },
-        // ),
       ),
       body: CustomScrollView(
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         slivers: [
-          // SliverAppBar(
-          //   pinned: true,
-          //   key: widget.key,
-          //   title: Row(
-          //     children: [
-          //       Text(
-          //         "OXT",
-          //         style: GoogleFonts.righteous(
-          //           fontSize: SizeService(context).height * 0.05,
-          //           fontWeight: FontWeight.w600,
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: 10,
                 horizontal: 10,
               ),
-              child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection("insights")
-                    .where(
-                      "createdAt",
-                      isGreaterThan: Timestamp.fromDate(
-                        DateTime(
-                          today.year,
-                          today.month,
-                          today.day,
-                          0,
-                          0,
-                          0,
-                          0,
-                        ),
-                      ),
-                    )
-                    .where("type", isEqualTo: "daily")
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else {
-                    List<InsightAlert> list = snapshot.data!.docs
-                        .map((e) => InsightAlert.fromDoc(e))
-                        .toList();
-                    return InsightsSlider(list: list);
-                  }
-                },
-              ),
+              child: widget.customer.isSubscribed == false
+                  ? const SubscriptionCard()
+                  : StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection("insights")
+                          .where(
+                            "createdAt",
+                            isGreaterThan: Timestamp.fromDate(
+                              DateTime(
+                                today.year,
+                                today.month,
+                                today.day,
+                                0,
+                                0,
+                                0,
+                                0,
+                              ),
+                            ),
+                          )
+                          .where("type", isEqualTo: "daily")
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          List<InsightAlert> list = snapshot.data!.docs
+                              .map((e) => InsightAlert.fromDoc(e))
+                              .toList();
+                          return InsightsSlider(list: list);
+                        }
+                      },
+                    ),
             ),
           ),
           SliverToBoxAdapter(
@@ -134,9 +116,18 @@ class _DashboardState extends State<Dashboard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Divider(
+                    height: SizeService(context).height * 0.05,
+                    indent: 10.0,
+                    endIndent: 10.0,
+                    thickness: 0.5,
+                    color: ThemeService.secondary,
+                  ),
                   ListTile(
                     contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 0.0, vertical: 0),
+                      horizontal: 0.0,
+                      vertical: 0,
+                    ),
                     title: Text(
                       "Recent trades",
                       key: widget.key,
@@ -147,20 +138,21 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     trailing: TextButton(
                       onPressed: () {
-                        NavigationService(context).push(const TradeArchives());
+                        widget.customer.isSubscribed == false
+                            ? ''
+                            : NavigationService(context)
+                                .push(const TradeArchives());
                       },
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.black87.withOpacity(0.69)),
-                        child: Text(
-                          "Trade archives",
-                          style: GoogleFonts.exo2(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                          key: widget.key,
+                      style: TextButton.styleFrom(
+                          backgroundColor: Colors.black87.withOpacity(0.69),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          )),
+                      child: Text(
+                        "Trade archives",
+                        style: GoogleFonts.exo2(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -253,10 +245,12 @@ class _DashboardState extends State<Dashboard> {
                                   children: [
                                     Text(
                                       '$textValue ${data['prices'] != null ? data['prices'].map((price) => price.toStringAsFixed(0)).join('/') : ''}',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 14,
-                                        color: Colors.black,
+                                        color: ThemeService(context).isDark
+                                            ? Colors.white
+                                            : Colors.black87,
                                       ),
                                     ),
                                     Text(
@@ -264,7 +258,9 @@ class _DashboardState extends State<Dashboard> {
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 12,
-                                        color: Colors.grey[600],
+                                        color: ThemeService(context).isDark
+                                            ? Colors.white
+                                            : Colors.black87,
                                       ),
                                     ),
                                   ],
@@ -274,7 +270,9 @@ class _DashboardState extends State<Dashboard> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 12,
-                                    color: Colors.grey[600],
+                                    color: ThemeService(context).isDark
+                                        ? Colors.white
+                                        : Colors.black87,
                                   ),
                                 ),
                                 trailing: Text(

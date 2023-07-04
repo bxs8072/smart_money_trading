@@ -13,51 +13,28 @@ class CustomTilesBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(
-                width: 5,
-              ),
-              Row(
-                children: [
-                  CustomTile(
-                    onTap: () {
-                      NavigationService(context).push(const MarketInsight());
-                    },
-                    top: "",
-                    title: "Market Insights",
-                    height: 0.10,
-                    weight: 0.22,
-                    color: ThemeService.dark,
-                    image: Image.asset(
-                      "assets/market-insight/market-insight.jpg",
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 6,
-                  ),
-                  CustomTile(
-                    onTap: () {},
-                    top: "",
-                    title: "Educational Matrial",
-                    height: 0.10,
-                    weight: 0.22,
-                    color: ThemeService.dark,
-                    image: Image.asset(
-                      "assets/trading-tips/trading-tips.jpg",
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        CustomTile(
+          onTap: () {
+            person.isSubscribed == false
+                ? ''
+                : NavigationService(context).push(const MarketInsight());
+          },
+          top: "",
+          title: "Market Insights",
+          color: ThemeService.dark,
+          image: "assets/market-insight/market-insight.jpg",
+        ),
+        CustomTile(
+          onTap: () {},
+          top: "",
+          title: "Educational Matrial",
+          color: ThemeService.dark,
+          image: "assets/trading-tips/trading-tips.jpg",
+        ),
+      ],
     );
   }
 }

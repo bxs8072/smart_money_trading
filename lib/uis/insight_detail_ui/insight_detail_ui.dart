@@ -44,6 +44,8 @@ class _InsightDetailUIState extends State<InsightDetailUI> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor:
+            ThemeService(context).isDark ? Colors.white : Colors.black87,
         onPressed: () {
           showModalBottomSheet(
               context: context,
@@ -75,7 +77,9 @@ class _InsightDetailUIState extends State<InsightDetailUI> {
                           child: Text(
                             "Post",
                             style: GoogleFonts.exo2(
-                              color: Colors.blue,
+                              color: ThemeService(context).isDark
+                                  ? Colors.white
+                                  : Colors.black87,
                               fontWeight: FontWeight.w700,
                             ),
                           ))
@@ -100,7 +104,10 @@ class _InsightDetailUIState extends State<InsightDetailUI> {
                 );
               });
         },
-        child: const Icon(Icons.add),
+        child: Icon(
+          Icons.comment_outlined,
+          color: ThemeService(context).isDark ? Colors.black87 : Colors.white,
+        ),
       ),
       key: widget.key,
       body: CustomScrollView(
@@ -130,7 +137,9 @@ class _InsightDetailUIState extends State<InsightDetailUI> {
                         style: GoogleFonts.exo2(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: ThemeService(context).isDark
+                              ? Colors.white
+                              : Colors.black87,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -138,7 +147,9 @@ class _InsightDetailUIState extends State<InsightDetailUI> {
                         widget.insightAlert.description,
                         style: GoogleFonts.exo2(
                           fontSize: 16,
-                          color: Colors.black87,
+                          color: ThemeService(context).isDark
+                              ? Colors.white
+                              : Colors.black87,
                         ),
                       ),
                       const SizedBox(height: 16),
