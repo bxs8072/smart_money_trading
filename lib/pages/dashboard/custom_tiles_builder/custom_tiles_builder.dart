@@ -6,6 +6,7 @@ import 'package:smart_money_trading/services/theme_services/dark_theme.dart';
 import 'package:smart_money_trading/services/theme_services/light_theme.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/pages/dashboard/custom_tiles_builder/custom_tile/custom_tile.dart';
+import 'package:smart_money_trading/uis/educational_material_ui/educational_material_ui.dart';
 
 class CustomTilesBuilder extends StatelessWidget {
   final Customer person;
@@ -28,9 +29,11 @@ class CustomTilesBuilder extends StatelessWidget {
           image: "assets/market-insight/market-insight.jpg",
         ),
         CustomTile(
-          onTap: () {},
+          onTap: () {
+            NavigationService(context).push(EducationalMaterial(key: key));
+          },
           top: "",
-          title: "Educational Matrial",
+          title: "Educational Material",
           color: ThemeService.dark,
           image: "assets/trading-tips/trading-tips.jpg",
         ),

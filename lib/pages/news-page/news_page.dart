@@ -76,73 +76,73 @@ class _NewsPageState extends State<NewsPage> {
             ),
           ),
         ),
-        FutureBuilder<List<Map<String, dynamic>>>(
-            initialData: [],
-            future: BenzingaApi().getNewsByCategory(category),
-            builder: (context, snapshot) {
-              List<Map<String, dynamic>> list = snapshot.data!
-                  .where((element) => element['image'].length > 1)
-                  .toList();
+        // FutureBuilder<List<Map<String, dynamic>>>(
+        //     initialData: [],
+        //     future: BenzingaApi().getNewsByCategory(category),
+        //     builder: (context, snapshot) {
+        //       List<Map<String, dynamic>> list = snapshot.data!
+        //           .where((element) => element['image'].length > 1)
+        //           .toList();
 
-              return SliverList(
-                  delegate: SliverChildBuilderDelegate((context, i) {
-                List<String> stocks = List<Map<String, dynamic>>.from(
-                        list[i]['stocks'])
-                    .map((Map<String, dynamic> item) => item['name'].toString())
-                    .toList();
+        //       return SliverList(
+        //           delegate: SliverChildBuilderDelegate((context, i) {
+        //         List<String> stocks = List<Map<String, dynamic>>.from(
+        //                 list[i]['stocks'])
+        //             .map((Map<String, dynamic> item) => item['name'].toString())
+        //             .toList();
 
-                return Card(
-                  elevation: 0.00,
-                  child: ListTile(
-                    onTap: () async {
-                      await launchUrl(
-                        Uri.parse(list[i]['url']),
-                        mode: LaunchMode.inAppWebView,
-                        webOnlyWindowName: list[i]['url'],
-                        webViewConfiguration: const WebViewConfiguration(
-                            enableDomStorage: true, enableJavaScript: true),
-                      );
-                    },
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12.0),
-                        child: Image.network(
-                          list[i]["image"][2]["url"],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          list[i]["title"],
-                        ),
-                        Text(
-                          '~ ${list[i]["author"]}',
-                          textAlign: TextAlign.end,
-                        ),
-                        Wrap(
-                          direction: Axis.horizontal,
-                          children: stocks
-                              .map(
-                                (e) => TextButton(
-                                  style: TextButton.styleFrom(
-                                    foregroundColor: Colors.blue,
-                                  ),
-                                  onPressed: () {},
-                                  child: Text(e),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }, childCount: list.length));
-            }),
+        //         return Card(
+        //           elevation: 0.00,
+        //           child: ListTile(
+        //             onTap: () async {
+        //               await launchUrl(
+        //                 Uri.parse(list[i]['url']),
+        //                 mode: LaunchMode.inAppWebView,
+        //                 webOnlyWindowName: list[i]['url'],
+        //                 webViewConfiguration: const WebViewConfiguration(
+        //                     enableDomStorage: true, enableJavaScript: true),
+        //               );
+        //             },
+        //             title: Padding(
+        //               padding: const EdgeInsets.all(8.0),
+        //               child: ClipRRect(
+        //                 borderRadius: BorderRadius.circular(12.0),
+        //                 child: Image.network(
+        //                   list[i]["image"][2]["url"],
+        //                   fit: BoxFit.cover,
+        //                 ),
+        //               ),
+        //             ),
+        //             subtitle: Column(
+        //               crossAxisAlignment: CrossAxisAlignment.stretch,
+        //               children: [
+        //                 Text(
+        //                   list[i]["title"],
+        //                 ),
+        //                 Text(
+        //                   '~ ${list[i]["author"]}',
+        //                   textAlign: TextAlign.end,
+        //                 ),
+        //                 Wrap(
+        //                   direction: Axis.horizontal,
+        //                   children: stocks
+        //                       .map(
+        //                         (e) => TextButton(
+        //                           style: TextButton.styleFrom(
+        //                             foregroundColor: Colors.blue,
+        //                           ),
+        //                           onPressed: () {},
+        //                           child: Text(e),
+        //                         ),
+        //                       )
+        //                       .toList(),
+        //                 ),
+        //               ],
+        //             ),
+        //           ),
+        //         );
+        //       }, childCount: list.length));
+        //     }),
       ],
     );
   }

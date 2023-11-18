@@ -68,6 +68,50 @@ class AdminPanelUI extends StatelessWidget {
                     subtitle: const Text("Create market insights alerts"),
                   ),
                 ),
+                CustomCard(
+                  padding: const EdgeInsets.all(0.0),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 3.0,
+                  ),
+                  child: ListTile(
+                    onTap: () {
+                      NavigationService(context).push(
+                        CreateInsightAlertUI(
+                          key: key,
+                        ),
+                      );
+                    },
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    leading: const Icon(Icons.question_answer),
+                    title: const Text("Create Quiz"),
+                    subtitle: const Text("Create OXT Quizes"),
+                  ),
+                ),
+                CustomCard(
+                  padding: const EdgeInsets.all(0.0),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 3.0,
+                  ),
+                  child: ListTile(
+                    onTap: () {
+                      NavigationService(context).push(
+                        CreateInsightAlertUI(
+                          key: key,
+                        ),
+                      );
+                    },
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    leading: const Icon(Icons.cast_for_education),
+                    title: const Text("Create OXT Education Material"),
+                    subtitle: const Text("Upload OXT Education Materials"),
+                  ),
+                ),
               ],
             ),
           ),

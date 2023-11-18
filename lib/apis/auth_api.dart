@@ -49,6 +49,7 @@ class AuthApi {
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       // Send error with specific message according to the error codes from firebase
+
       throw FirebaseAuthErrorMessage(e.code).message;
     }
   }

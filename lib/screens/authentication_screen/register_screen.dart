@@ -534,7 +534,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 widget.bloc.update(FormType.login);
                               },
                               child: Text(
-                                "Sing in",
+                                "Sign in",
                                 style: GoogleFonts.baskervville(
                                   fontSize: SizeService(context).height * 0.025,
                                   fontWeight: FontWeight.bold,
