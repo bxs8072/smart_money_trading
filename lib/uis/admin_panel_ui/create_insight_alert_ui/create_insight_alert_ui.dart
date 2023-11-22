@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:smart_money_trading/custom_widgets/custom_card.dart';
 import 'package:smart_money_trading/models/insight_alert.dart';
 

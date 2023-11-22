@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_money_trading/models/education_material.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 
 class AddEducationMaterialUI extends StatefulWidget {
@@ -45,7 +44,6 @@ class _AddEducationMaterialUIState extends State<AddEducationMaterialUI> {
       body: Form(
         key: formKey,
         child: ListView(
-          shrinkWrap: true,
           padding: const EdgeInsets.all(16.0),
           children: [
             Container(

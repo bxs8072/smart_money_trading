@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:smart_money_trading/services/navigation_service.dart';
-import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/uis/admin_panel_ui/admin_panel_ui.dart';
 import 'package:smart_money_trading/uis/subscription-ui/subscription_ui.dart';
 

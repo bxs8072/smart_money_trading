@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:smart_money_trading/apis/benzinga_api.dart';
 import 'package:smart_money_trading/models/customer.dart';
 import 'package:smart_money_trading/services/size_service.dart';
-import 'package:smart_money_trading/services/theme_services/theme_service.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class NewsPage extends StatefulWidget {
   final Customer customer;

@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/trade_alert.dart';
-import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/uis/trade_detail_ui/trade_detail_ui.dart';
 
 class TradeArchives extends StatelessWidget {

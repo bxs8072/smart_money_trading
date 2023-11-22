@@ -76,7 +76,6 @@ class _EditQuizUIState extends State<EditQuizUI> {
           body: Form(
             key: formKey,
             child: ListView(
-              shrinkWrap: true,
               padding: const EdgeInsets.all(16.0),
               children: [
                 Container(

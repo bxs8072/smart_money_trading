@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/ticker.dart';
 import 'package:smart_money_trading/models/trade_alert.dart';
@@ -353,7 +352,9 @@ class _CreateTradeAlertUIState extends State<CreateTradeAlertUI> {
                                 alertType: "TRADE_ALERT",
                               ).toJson,
                             )
-                            .then((value) => Navigator.pop(context),);
+                            .then(
+                              (value) => Navigator.pop(context),
+                            );
                       },
                       child: const Text("CREATE TRADE ALERT"),
                     ),

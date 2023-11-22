@@ -56,7 +56,6 @@ class _EditEducationMaterialUIState extends State<EditEducationMaterialUI> {
       body: Form(
         key: formKey,
         child: ListView(
-          shrinkWrap: true,
           padding: const EdgeInsets.all(16.0),
           children: [
             Container(
