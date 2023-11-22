@@ -4,6 +4,8 @@ import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/uis/admin_panel_ui/create_insight_alert_ui/create_insight_alert_ui.dart';
 import 'package:smart_money_trading/uis/admin_panel_ui/create_trade_alert_ui/create_trade_alert_ui.dart';
+import 'package:smart_money_trading/uis/admin_panel_ui/manage_education_materials_ui/manage_education_materials_ui.dart';
+import 'package:smart_money_trading/uis/admin_panel_ui/manage_quizes_ui/manage_quizes_ui.dart';
 
 class AdminPanelUI extends StatelessWidget {
   const AdminPanelUI({super.key});
@@ -77,7 +79,7 @@ class AdminPanelUI extends StatelessWidget {
                   child: ListTile(
                     onTap: () {
                       NavigationService(context).push(
-                        CreateInsightAlertUI(
+                        ManageQuizesUI(
                           key: key,
                         ),
                       );
@@ -86,8 +88,8 @@ class AdminPanelUI extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
                     leading: const Icon(Icons.question_answer),
-                    title: const Text("Create Quiz"),
-                    subtitle: const Text("Create OXT Quizes"),
+                    title: const Text("Manage Quizes"),
+                    subtitle: const Text("Manage OXT Quizes"),
                   ),
                 ),
                 CustomCard(
@@ -99,17 +101,16 @@ class AdminPanelUI extends StatelessWidget {
                   child: ListTile(
                     onTap: () {
                       NavigationService(context).push(
-                        CreateInsightAlertUI(
-                          key: key,
-                        ),
+                        ManageEducationMaterialsUI(key: key),
                       );
                     },
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
-                    leading: const Icon(Icons.cast_for_education),
-                    title: const Text("Create OXT Education Material"),
-                    subtitle: const Text("Upload OXT Education Materials"),
+                    leading: const Icon(Icons.school),
+                    title: const Text("Manage OXT Education Material"),
+                    subtitle:
+                        const Text("Create and Edit OXT Education Materials"),
                   ),
                 ),
               ],

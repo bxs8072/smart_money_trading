@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smart_money_trading/models/insight_alert.dart';
-import 'package:smart_money_trading/models/trade_alert.dart';
-import 'package:smart_money_trading/pages/dashboard/dashboard.dart';
 import 'package:smart_money_trading/services/size_service.dart';
 import 'package:smart_money_trading/services/theme_services/theme_service.dart';
 import 'package:smart_money_trading/uis/insight_detail_ui/insight_detail_ui.dart';
-import 'package:smart_money_trading/uis/trade_archives_ui/trade_archives_ui.dart';
 
 import '../../services/navigation_service.dart';
 

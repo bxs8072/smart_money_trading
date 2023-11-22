@@ -12,50 +12,39 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       key: key,
-      child: Scaffold(
-        key: key,
-        body: SafeArea(
-          child: Column(
+      child: SafeArea(
+        child: Scaffold(
+          key: key,
+          body: Column(
             children: [
               Expanded(
-                key: key,
-                child: CustomScrollView(
-                  key: key,
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: Icon(
-                              ThemeService(context).isDark
-                                  ? Icons.light_rounded
-                                  : Icons.light_outlined,
-                              color: ThemeService(context).isDark
-                                  ? Colors.white
-                                  : Colors.black87,
-                            ),
-                            title: const Text("Dark Mode"),
-                            subtitle: Text(ThemeService.darkId ==
-                                    ThemeProvider.controllerOf(context)
-                                        .currentThemeId
-                                ? "Active"
-                                : "Inactive"),
-                            trailing: Switch(
-                              activeColor: ThemeService.secondary,
-                              value: ThemeService.darkId ==
-                                  ThemeProvider.controllerOf(context)
-                                      .currentThemeId,
-                              onChanged: (val) {
-                                ThemeProvider.controllerOf(context).nextTheme();
-                              },
-                            ),
-                          )
-                        ],
-                      ),
+                  child: ListView(
+                children: [
+                  ListTile(
+                    leading: Icon(
+                      ThemeService(context).isDark
+                          ? Icons.light_rounded
+                          : Icons.light_outlined,
+                      color: ThemeService(context).isDark
+                          ? Colors.white
+                          : Colors.black87,
                     ),
-                  ],
-                ),
-              ),
+                    title: const Text("Dark Mode"),
+                    subtitle: Text(ThemeService.darkId ==
+                            ThemeProvider.controllerOf(context).currentThemeId
+                        ? "Active"
+                        : "Inactive"),
+                    trailing: Switch(
+                      activeColor: ThemeService.secondary,
+                      value: ThemeService.darkId ==
+                          ThemeProvider.controllerOf(context).currentThemeId,
+                      onChanged: (val) {
+                        ThemeProvider.controllerOf(context).nextTheme();
+                      },
+                    ),
+                  ),
+                ],
+              )),
               ListTile(
                 key: key,
                 onTap: () {

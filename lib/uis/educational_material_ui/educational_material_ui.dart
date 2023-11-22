@@ -1,17 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_money_trading/models/education_material.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:smart_money_trading/services/navigation_service.dart';
 import 'package:smart_money_trading/uis/pdf_view_ui/pdf_view_ui.dart';
 
-class EducationalMaterial extends StatefulWidget {
-  const EducationalMaterial({super.key});
+class EducationalMaterialUI extends StatefulWidget {
+  const EducationalMaterialUI({super.key});
 
   @override
-  State<EducationalMaterial> createState() => _EducationalMaterialState();
+  State<EducationalMaterialUI> createState() => _EducationalMaterialUIState();
 }
 
-class _EducationalMaterialState extends State<EducationalMaterial> {
+class _EducationalMaterialUIState extends State<EducationalMaterialUI> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,27 +33,21 @@ class _EducationalMaterialState extends State<EducationalMaterial> {
                         child: CircularProgressIndicator(key: widget.key)),
                   );
                 }
-                List<MaterialItem> materialItems = snapshot.data!.docs
-                    .map(
-                      (e) => MaterialItem(
-                          title: e.data()["title"],
-                          subtitle: e.data()["subtitle"],
-                          imageUrl: e.data()["imageUrl"],
-                          pdfLink: e.data()["pdfLink"],
-                          createdAt: e.data()["createdAt"]),
-                    )
+                List<EducationMaterial> educationMaterialList = snapshot
+                    .data!.docs
+                    .map((doc) => EducationMaterial.fromDocumentSnapshot(doc))
                     .toList();
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
-                      MaterialItem item = materialItems[index];
+                      EducationMaterial item = educationMaterialList[index];
                       return MaterialItemWidget(
                         item: item,
                         onTap: () {
                           // Push to the PDF view UI with the selected item details
                           NavigationService(context).push(
                             PdfViewUI(
-                              pdfLink: item.pdfLink,
+                              pdfLink: item.pdfUrl,
                               key: ValueKey(item
                                   .title), // Ensure key is unique for each PDF
                             ),
@@ -60,7 +55,7 @@ class _EducationalMaterialState extends State<EducationalMaterial> {
                         },
                       );
                     },
-                    childCount: materialItems.length,
+                    childCount: educationMaterialList.length,
                   ),
                 );
               }),
@@ -89,7 +84,7 @@ class MaterialItem {
 
 // Define a widget for material items
 class MaterialItemWidget extends StatelessWidget {
-  final MaterialItem item;
+  final EducationMaterial item;
   final VoidCallback onTap;
 
   const MaterialItemWidget(
